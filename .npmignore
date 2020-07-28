@@ -1,0 +1,15 @@
+.DS_Store
+.idea
+bin/
+build/
+docs/
+examples/
+Makefile
+modules/
+node_test/
+npm-debug.log
+src/
+test/
+TODO
+tsconfig.json
+typedoc.json

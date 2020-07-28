@@ -1,0 +1,39 @@
+name: nkeys.js
+
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      - '*'
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    name: ${{ matrix.config.kind }} ${{ matrix.config.os }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        deno-version: [1.2.0]
+        node-version: [10.x, 14.x]
+
+    steps:
+      - name: checkout nkeys
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: setup deno ${{ matrix.deno-version }}
+        uses: denolib/setup-deno@master
+        with:
+          deno-version: ${{ matrix.deno-version }}
+
+      - name: setup nodejs ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm ci
+      - run: npm test

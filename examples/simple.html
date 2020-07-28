@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          crossorigin="anonymous">
+</head>
+<body>
+<!-- a place to record messages -->
+<div id="log" class="container"></div>
+<!-- load a script -->
+<script type="module">
+  import {
+    createUser,
+    fromPublic,
+    fromSeed,
+  } from "../nkeys.mjs";
+
+  // add an entry to the document
+  function addMessage(s) {
+    const p = document.createElement("pre");
+    p.appendChild(document.createTextNode(s));
+    document.getElementById("log").appendChild(p);
+  }
+
+  // create an user nkey KeyPair (can also create accounts, operators, etc).
+  const user = createUser();
+
+  // A seed is the public and private keys together.
+  const seed = user.getSeed();
+
+  // To view a seed, simply decode it:
+  addMessage(new TextDecoder().decode(seed));
+
+  // Seeds are encoded into Uint8Array, and start with
+  // the letter 'S'. Seeds need to be kept safe and never shared
+  addMessage(`seeds start with 'S': ${seed[0] === "S".charCodeAt(0)}`);
+
+  // A seed's second letter encodes it's type:
+  // `U` for user,
+  // `A` for account,
+  // `O` for operators
+  addMessage(`user seed starts with 'SU'? ${seed[1] === "U".charCodeAt(0)}`);
+
+  const publicKey = user.getPublicKey();
+  addMessage(publicKey);
+  addMessage(`public keys for user start with 'U'? ${publicKey[0] === "U"}`);
+
+
+  // you can recreate the keypair with its seed:
+  const priv = fromSeed(seed);
+
+  // Using the KeyPair, you can cryptographically sign content:
+  const data = new TextEncoder().encode("Hello World!");
+  const sig = priv.sign(data);
+
+  // and verify a signature:
+  const valid = user.verify(data, sig);
+  if (!valid) {
+    addMessage("couldn't validate the data/signature against my key");
+  } else {
+    addMessage("created some data, created a digital signature, and verified it with my key");
+  }
+
+  // others can validate using your public key:
+  const pub = fromPublic(publicKey);
+  if (!pub.verify(data, sig)) {
+    addMessage(`couldn't validate the data/signature with ${publicKey}`);
+  } else {
+    addMessage(`validated the digital signature with my public key ${publicKey}`);
+  }
+
+  // when extracting with seeds or private keys
+  // you should clear them when done:
+  seed.fill(0);
+
+  // you should also clear the keypairs:
+  user.clear();
+  priv.clear();
+</script>
+</body>
+</html>

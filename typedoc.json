@@ -1,0 +1,13 @@
+{
+    "mode": "file",
+    "readme": "none",
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeExternals": true,
+    "excludeNotExported": true,
+    "stripInternal": true,
+    "theme": "minimal",
+    "out": "docs/",
+    "src": "lib/nkeys.js"
+}
+

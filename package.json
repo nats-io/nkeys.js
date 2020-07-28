@@ -1,0 +1,49 @@
+{
+  "name": "nkeys.js",
+  "version": "1.0.0",
+  "description": "A public-key signature system based on Ed25519 for the NATS ecosystem in javascript",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "init": "mkdir -p build",
+    "clean": "rm -Rf build/ lib/ nkeys.d.ts nkeys.mjs",
+    "fmt": "deno fmt src/ examples/ modules/ test/ node_test/",
+    "cjs": "deno run --allow-all bin/cjs-fix-imports.ts -o build/ src/ modules/cjs/ node_test/",
+    "stage": "npm run init && npm run cjs && tsc",
+    "prepare": "npm run stage && deno bundle modules/esm/mod.ts nkeys.mjs && tsc",
+    "test": "npm run prepare && ava --verbose",
+    "doc": "node_modules/.bin/typedoc --options ./typedoc.json && touch ./docs/.nojekyll"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//nats-io/ts-nkeys"
+  },
+  "keywords": [
+    "nats",
+    "Ed25519",
+    "javascript"
+  ],
+  "author": "The NATS Authors",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@types/node": "^14.0.26",
+    "fastestsmallesttextencoderdecoder": "^1.0.22",
+    "text-encoding": "^0.7.0",
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "ava": "^3.11.0",
+    "typedoc": "^0.17.6",
+    "typescript": "^4.0.0-dev.20200727"
+  },
+  "ava": {
+    "failFast": true,
+    "require": [],
+    "files": [
+      "./node_test/*.js"
+    ]
+  }
+}
