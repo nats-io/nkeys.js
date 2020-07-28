@@ -30,7 +30,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@types/node": "^14.0.26",
-    "fastestsmallesttextencoderdecoder": "^1.0.22",
     "text-encoding": "^0.7.0",
     "tweetnacl": "^1.0.3"
   },
