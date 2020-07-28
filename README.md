@@ -38,6 +38,7 @@ import {
 
 
 ## Basic Usage
+The [documentation is here](https://nats-io.github.io/nkeys.js/)
 
 ```typescript
 // create an user nkey KeyPair (can also create accounts, operators, etc).
@@ -91,7 +92,6 @@ seed.fill(0);
 user.clear();
 priv.clear();
 ```
-
 
 ## Supported Node Versions
 
