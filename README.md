@@ -96,7 +96,7 @@ priv.clear();
 ## Supported Node Versions
 
 Our support policy for Nodejs versions follows [Nodejs release support](https://github.com/nodejs/Release).
-We will support and build node-nats on even-numbered Nodejs versions that are current or in LTS.
+We will support and build nkeys.js on even-numbered Nodejs versions that are current or in LTS.
 
 ## License
 
