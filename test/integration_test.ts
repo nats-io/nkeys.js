@@ -16,17 +16,26 @@ import {
   assertEquals,
   assert,
 } from "https://deno.land/std@0.61.0/testing/asserts.ts";
-import { fromPublic, fromSeed, Prefix } from "../src/nkeys.ts";
+
+import {
+  fromPublic,
+  fromSeed,
+  encode,
+  decode,
+} from "../modules/esm/mod.ts";
+
 import { Codec } from "../src/codec.ts";
-import { decode, encode } from "../src/util.ts";
+import { Prefix } from "../src/nkeys.ts";
 
 // this was generated using nkey api in go
 let data = {
-  "seed": "SAAK7IAXLQQ2A65HJCMUBR6IG6GP3AOXQGEPCNQIIAG7ZZ7XCEFIROMY6U",
-  "public_key": "ACLG5IASA6EMBRAUOXXWX44GNBZPDJO3A3RYDT7FDYYEPBJIBRGP6WHZ",
-  "nonce": "2w2TrJVMAqwqZbg0nXovhQ==",
+  "seed": "SAAF4UIJKVC4GYUK5BY62RPQMKN2GQXK6MYVEU7WOYVNKL5F5BC7PZZJRA",
+  "public_key": "ADO3TKZ3CCL5KBBMSN72KCHIZW6GM4FFULQCNYSAWHQENDGUZ53UXRRH",
+  "private_key":
+    "PBPFCCKVIXBWFCXIOHWUL4DCTORUF2XTGFJFH5TWFLKS7JPIIX36PXNZVM5RBF6VAQWJG75FBDUM3PDGOCS2FYBG4JALDYCGRTKM652LINDQ",
+  "nonce": "Zh88CD_2MhTNes_fOxXihw==",
   "sig":
-    "F64qNsH2n_XllIX7qYa1YqTTH_K61tPHlvvsN_lhlo-tCpTaKfp0_yWnw5IsQeaiSqwN2rUs20Rk1VV9vtiBBw==",
+    "1m_-jJwKlT0McnKUUuPnMfxCAeKQzwaBYfSMFSYRVUXkl-GqMe3pXk3uK1MYzbdG0SA-KJ58t2KLWnI39agOBg==",
 };
 
 Deno.test("integration - verify", () => {
@@ -38,6 +47,9 @@ Deno.test("integration - verify", () => {
 
   const seed = fromSeed(te.encode(data.seed));
   assert(seed.verify(nonce, sig));
+  const sig2 = seed.sign(nonce);
+  const encsig = encode(sig2);
+  assertEquals(encsig, data.sig);
 });
 
 Deno.test("integration - encoded seed returns stable values albertor", () => {
@@ -46,8 +58,9 @@ Deno.test("integration - encoded seed returns stable values albertor", () => {
     "public_key": "UAHJLSMYZDJCBHQ2SARL37IEALR3TI7VVPZ2MJ7F4SZKNOG7HJJIYW5T",
     "private_key":
       "PBQWYYTFOJ2G64TBNRRGK4TUN5ZGC3DCMVZHI33SMFWGEZLSORXXEDUVZGMMRURATYNJAIV57UCAFY5ZUP22X45GE7S6JMVGXDPTUUUMRKXA",
-    "nonce": "",
-    "sig": "",
+    "nonce": "6dlxYWUcKivV8ot-nfzL3A==",
+    "sig":
+      "Wu21cRoaNo2sYlQbH_Uc5KAkxqpEAcshXTYZDUyRTuk0wKy7bgPRvjU6CQUDTzBJVvJH7rPv3MuGZ3aDpwqMCg==",
   };
 
   const td = new TextDecoder();

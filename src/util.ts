@@ -12,13 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * Encode binary data to a base64 string
  * @param {Uint8Array} bytes to encode to base64
  */
 export function encode(bytes: Uint8Array): string {
-  return btoa(String.fromCharCode(...bytes));
+  let b64str = btoa(String.fromCharCode(...bytes));
+  b64str = b64str.split("/").join("_");
+  b64str = b64str.split("+").join("-");
+  return b64str;
 }
 
 /**

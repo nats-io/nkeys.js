@@ -24,6 +24,15 @@ if (typeof TextEncoder !== "function") {
   global.TextDecoder = TextEncodingPolyfill.TextDecoder;
 }
 
+if (typeof atob !== "function") {
+  global.atob = (a) => {
+    return Buffer.from(a, "base64").toString("binary");
+  };
+  global.btoa = (b) => {
+    return Buffer.from(b, "binary").toString("base64");
+  };
+}
+
 /**
  * @ignore
  */
