@@ -17,10 +17,7 @@
  * @param {Uint8Array} bytes to encode to base64
  */
 export function encode(bytes: Uint8Array): string {
-  let b64str = btoa(String.fromCharCode(...bytes));
-  b64str = b64str.split("/").join("_");
-  b64str = b64str.split("+").join("-");
-  return b64str;
+  return btoa(String.fromCharCode(...bytes));
 }
 
 /**
@@ -28,11 +25,6 @@ export function encode(bytes: Uint8Array): string {
  * @param {string} base64 encoded string
  */
 export function decode(b64str: string) {
-  // if we were URL encoded, some characters will be
-  // wrong - replace underscores and - with / and +
-  b64str = b64str.split("_").join("/");
-  b64str = b64str.split("-").join("+");
-
   const bin = atob(b64str);
   const bytes = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) {
