@@ -15,16 +15,16 @@ const helper = {
 };
 
 // This here to support node 10.
-if (typeof TextEncoder !== "function") {
+if (typeof TextEncoder === "undefined") {
   //@ts-ignore
-  const TextEncodingPolyfill = require("text-encoding");
+  const util = require("util");
   //@ts-ignore
-  global.TextEncoder = TextEncodingPolyfill.TextEncoder;
+  global.TextEncoder = util.TextEncoder;
   //@ts-ignore
-  global.TextDecoder = TextEncodingPolyfill.TextDecoder;
+  global.TextDecoder = util.TextDecoder;
 }
 
-if (typeof atob !== "function") {
+if (typeof atob === "undefined") {
   global.atob = (a) => {
     return Buffer.from(a, "base64").toString("binary");
   };
