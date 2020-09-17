@@ -26,14 +26,14 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 //
 //   For more information, please refer to <http://unlicense.org>
-import { Ed25519Helper } from "../../src/helper.ts";
+import type { Ed25519Helper } from "../../src/helper.ts";
 
 import {
   sign_keyPair_fromSeed,
   sign_detached,
   sign_detached_verify,
   randomBytes,
-} from "https://raw.githubusercontent.com/aricart/tweetnacl-deno/v1.0.4/src/nacl.ts";
+} from "https://raw.githubusercontent.com/aricart/tweetnacl-deno/import-type-fixes/src/nacl.ts";
 
 export const denoHelper = {
   fromSeed: sign_keyPair_fromSeed,

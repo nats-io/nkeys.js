@@ -16,7 +16,7 @@
 import {
   assert,
   fail,
-} from "https://deno.land/std@0.61.0/testing/asserts.ts";
+} from "https://deno.land/std@0.69.0/testing/asserts.ts";
 
 export function assertThrowsErrorCode(fn: () => any, ...codes: string[]) {
   try {
