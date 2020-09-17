@@ -16,7 +16,7 @@ import { assertThrowsErrorCode } from "./util.ts";
 
 import {
   assertEquals,
-} from "https://deno.land/std@0.61.0/testing/asserts.ts";
+} from "https://deno.land/std@0.69.0/testing/asserts.ts";
 import { Codec } from "../src/codec.ts";
 import { NKeysErrorCode, Prefix } from "../src/nkeys.ts";
 

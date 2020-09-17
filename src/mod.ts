@@ -23,7 +23,7 @@ export {
   fromPublic,
   fromSeed,
   NKeysError,
-  NKeysErrorCode
+  NKeysErrorCode,
 } from "./nkeys.ts";
 
 export {
