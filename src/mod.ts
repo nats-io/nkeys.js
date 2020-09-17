@@ -12,6 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+export type {
+  KeyPair,
+} from "./nkeys.ts";
 export {
   createPair,
   createAccount,
@@ -19,9 +22,8 @@ export {
   createOperator,
   fromPublic,
   fromSeed,
-  KeyPair,
   NKeysError,
-  NKeysErrorCode,
+  NKeysErrorCode
 } from "./nkeys.ts";
 
 export {
