@@ -1,10 +1,10 @@
-import { parse } from "https://deno.land/std@0.69.0/flags/mod.ts";
+import { parse } from "https://deno.land/std@0.75.0/flags/mod.ts";
 import {
   join,
   resolve,
   basename,
   extname,
-} from "https://deno.land/std@0.69.0/path/mod.ts";
+} from "https://deno.land/std@0.75.0/path/mod.ts";
 
 const argv = parse(
   Deno.args,

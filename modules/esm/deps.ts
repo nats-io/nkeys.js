@@ -29,10 +29,10 @@
 import type { Ed25519Helper } from "../../src/helper.ts";
 
 import {
-  sign_keyPair_fromSeed,
+  randomBytes,
   sign_detached,
   sign_detached_verify,
-  randomBytes,
+  sign_keyPair_fromSeed,
 } from "https://raw.githubusercontent.com/aricart/tweetnacl-deno/import-type-fixes/src/nacl.ts";
 
 export const denoHelper = {

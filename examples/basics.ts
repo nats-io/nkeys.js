@@ -1,8 +1,4 @@
-import {
-  createUser,
-  fromPublic,
-  fromSeed,
-} from "../src/mod.ts";
+import { createUser, fromPublic, fromSeed } from "../src/mod.ts";
 
 // create an user nkey KeyPair (can also create accounts, operators, etc).
 const user = createUser();

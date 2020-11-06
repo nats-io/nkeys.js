@@ -22,9 +22,9 @@ export function encode(bytes: Uint8Array): string {
 
 /**
  * Decode a base64 encoded string to a binary Uint8Array
- * @param {string} base64 encoded string
+ * @param {string} b64str encoded string
  */
-export function decode(b64str: string) {
+export function decode(b64str: string): Uint8Array {
   const bin = atob(b64str);
   const bytes = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) {

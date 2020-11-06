@@ -15,9 +15,9 @@
 
 import { crc16 } from "../src/crc16.ts";
 import {
-  assertEquals,
   assert,
-} from "https://deno.land/std@0.69.0/testing/asserts.ts";
+  assertEquals,
+} from "https://deno.land/std@0.75.0/testing/asserts.ts";
 
 Deno.test("crc16 - should return [0xC8, 0xB2] given [0x41, 0x4C, 0x42, 0x45, 0x52, 0x54, 0x4F]", () => {
   const buf = new Uint8Array([0x41, 0x4C, 0x42, 0x45, 0x52, 0x54, 0x4F]);
