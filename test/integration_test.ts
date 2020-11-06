@@ -13,16 +13,11 @@
  * limitations under the License.
  */
 import {
-  assertEquals,
   assert,
-} from "https://deno.land/std@0.69.0/testing/asserts.ts";
+  assertEquals,
+} from "https://deno.land/std@0.75.0/testing/asserts.ts";
 
-import {
-  fromPublic,
-  fromSeed,
-  encode,
-  decode,
-} from "../modules/esm/mod.ts";
+import { decode, encode, fromPublic, fromSeed } from "../modules/esm/mod.ts";
 
 import { Codec } from "../src/codec.ts";
 import { Prefix } from "../src/nkeys.ts";

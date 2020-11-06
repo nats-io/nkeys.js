@@ -12,21 +12,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export type {
-  KeyPair,
-} from "./nkeys.ts";
+export type { KeyPair } from "./nkeys.ts";
 export {
-  createPair,
   createAccount,
-  createUser,
   createOperator,
+  createPair,
+  createUser,
   fromPublic,
   fromSeed,
   NKeysError,
   NKeysErrorCode,
+  Prefix,
 } from "./nkeys.ts";
 
-export {
-  encode,
-  decode,
-} from "./util.ts";
+export { decode, encode } from "./util.ts";

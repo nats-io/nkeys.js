@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        deno-version: [1.4.0]
+        deno-version: [1.4.6]
 
     steps:
       - name: checkout project
