@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 The NATS Authors
+ * Copyright 2018-2021 The NATS Authors
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,9 +19,12 @@
 /**
  * @ignore
  */
-export class base32 {
-  static alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+const b32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
+/**
+ * @ignore
+ */
+export class base32 {
   static encode(src: Uint8Array): Uint8Array {
     let bits = 0;
     let value = 0;
@@ -33,13 +36,13 @@ export class base32 {
       bits += 8;
       while (bits >= 5) {
         let index = (value >>> (bits - 5)) & 31;
-        buf[j++] = base32.alphabet.charAt(index).charCodeAt(0);
+        buf[j++] = b32Alphabet.charAt(index).charCodeAt(0);
         bits -= 5;
       }
     }
     if (bits > 0) {
       let index = (value << (5 - bits)) & 31;
-      buf[j++] = base32.alphabet.charAt(index).charCodeAt(0);
+      buf[j++] = b32Alphabet.charAt(index).charCodeAt(0);
     }
     return buf.slice(0, j);
   }
@@ -52,7 +55,7 @@ export class base32 {
     let out = new Uint8Array(a.byteLength * 5 / 8 | 0);
     for (let i = 0; i < a.byteLength; i++) {
       let v = String.fromCharCode(a[i]);
-      let vv = base32.alphabet.indexOf(v);
+      let vv = b32Alphabet.indexOf(v);
       if (vv === -1) {
         throw new Error("Illegal Base32 character: " + a[i]);
       }
