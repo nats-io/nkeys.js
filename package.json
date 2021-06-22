@@ -12,7 +12,7 @@
     "stage": "npm run init && npm run cjs && tsc",
     "prepare": "npm run stage && deno bundle modules/esm/mod.ts nkeys.mjs && tsc",
     "test": "npm run prepare && ava --verbose && deno test test/",
-    "doc": "node_modules/.bin/typedoc --options ./typedoc.json && touch ./docs/.nojekyll"
+    "doc": "npm run clean && rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@types/node": "^15.12.2",
     "ava": "^3.12.1",
-    "typedoc": "^0.19.1",
+    "typedoc": "^0.20.37",
     "typescript": "^4.0.2"
   },
   "ava": {
