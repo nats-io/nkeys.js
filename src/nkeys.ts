@@ -108,10 +108,10 @@ export interface KeyPair {
   getPrivateKey(): Uint8Array;
 
   /**
-     * Returns the PrivateKey's seed.
-     * @returns Uint8Array
-     * @throws NKeysError
-     */
+   * Returns the PrivateKey's seed.
+   * @returns Uint8Array
+   * @throws NKeysError
+   */
   getSeed(): Uint8Array;
 
   /**
