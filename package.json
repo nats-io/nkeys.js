@@ -8,10 +8,10 @@
     "init": "mkdir -p build",
     "clean": "rm -Rf build/ lib/ nkeys.d.ts nkeys.mjs",
     "fmt": "deno fmt src/ examples/ modules/ test/ node_test/",
-    "cjs": "deno run --allow-all bin/cjs-fix-imports.ts -o build/ src/ modules/cjs/ node_test/",
+    "cjs": "deno run --allow-all --unstable bin/cjs-fix-imports.ts -o build/ src/ modules/cjs/ node_test/",
     "stage": "npm run init && npm run cjs && tsc",
-    "prepare": "npm run stage && deno bundle modules/esm/mod.ts nkeys.mjs && tsc",
-    "test": "npm run prepare && ava --verbose && deno test test/",
+    "prepare": "npm run stage && deno bundle --unstable modules/esm/mod.ts nkeys.mjs && tsc",
+    "test": "npm run prepare && ava --verbose && deno test --allow-all --unstable test/",
     "doc": "npm run clean && rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll"
   },
   "engines": {
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com//nats-io/ts-nkeys"
+    "url": "https://github.com//nats-io/nkeys.js"
   },
   "keywords": [
     "nats",
@@ -33,9 +33,9 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.0",
-    "ava": "^3.12.1",
-    "typedoc": "^0.22.0",
-    "typescript": "^4.5.4"
+    "ava": "^4.2.0",
+    "typedoc": "^0.22.15",
+    "typescript": "^4.6.x"
   },
   "ava": {
     "failFast": true,
