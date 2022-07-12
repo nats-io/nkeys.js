@@ -16,8 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        deno-version: [1.17.0]
-        node-version: [12.x, 14.x, 16.x]
+        deno-version: [1.22.0]
+        node-version: [14.x, 16.x, 18.x]
 
     steps:
       - name: checkout nkeys
