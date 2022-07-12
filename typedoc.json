@@ -1,6 +1,6 @@
 {
     "readme": "none",
-    "theme": "minimal",
+    "theme": "default",
     "out": "docs/",
     "entryPoints": ["build/mod.ts"]
 }

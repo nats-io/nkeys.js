@@ -1,6 +1,6 @@
 {
   "name": "nkeys.js",
-  "version": "1.0.0-10",
+  "version": "1.0.1",
   "description": "A public-key signature system based on Ed25519 for the NATS ecosystem in javascript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com//nats-io/ts-nkeys"
+    "url": "https://github.com//nats-io/nkeys.js"
   },
   "keywords": [
     "nats",
@@ -29,13 +29,13 @@
   "author": "The NATS Authors",
   "license": "Apache-2.0",
   "dependencies": {
-    "tweetnacl": "^1.0.3"
+    "tweetnacl": "1.0.3"
   },
   "devDependencies": {
-    "@types/node": "^17.0.0",
-    "ava": "^3.12.1",
-    "typedoc": "^0.22.0",
-    "typescript": "^4.5.4"
+    "@types/node": "^18.0.0",
+    "ava": "^4.2.0",
+    "typedoc": "^0.23.x",
+    "typescript": "^4.7.x"
   },
   "ava": {
     "failFast": true,
