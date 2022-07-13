@@ -26,7 +26,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 //
 //   For more information, please refer to <http://unlicense.org>
-import nacl from "./tweetnacl.js";
+import { nacl } from "./nacl.js";
 
 import type { Ed25519Helper } from "../../src/helper.ts";
 
