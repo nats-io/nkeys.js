@@ -1,6 +1,6 @@
 {
   "name": "nkeys.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A public-key signature system based on Ed25519 for the NATS ecosystem in javascript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,9 +9,10 @@
     "clean": "rm -Rf build/ lib/ nkeys.d.ts nkeys.mjs",
     "fmt": "deno fmt src/ examples/ modules/ test/ node_test/",
     "cjs": "deno run --allow-all bin/cjs-fix-imports.ts -o build/ src/ modules/cjs/ node_test/",
-    "stage": "npm run init && npm run cjs && tsc",
+    "generate": "deno run -A --unstable ./bin/tweetnacl-esm.ts",
+    "stage": "npm run init && npm run cjs && npm run generate && tsc",
     "prepare": "npm run stage && deno bundle modules/esm/mod.ts nkeys.mjs && tsc",
-    "test": "npm run prepare && ava --verbose && deno test test/",
+    "test": "npm run prepare && ava --verbose && deno test -A --unstable test/",
     "doc": "npm run clean && rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll"
   },
   "engines": {

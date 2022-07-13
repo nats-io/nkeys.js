@@ -26,18 +26,13 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 //
 //   For more information, please refer to <http://unlicense.org>
+import nacl from "./tweetnacl.js";
+
 import type { Ed25519Helper } from "../../src/helper.ts";
 
-import {
-  randomBytes,
-  sign_detached,
-  sign_detached_verify,
-  sign_keyPair_fromSeed,
-} from "https://raw.githubusercontent.com/aricart/tweetnacl-deno/import-type-fixes/src/nacl.ts";
-
 export const denoHelper = {
-  fromSeed: sign_keyPair_fromSeed,
-  sign: sign_detached,
-  verify: sign_detached_verify,
-  randomBytes: randomBytes,
+  fromSeed: nacl.sign.keyPair.fromSeed,
+  sign: nacl.sign.detached,
+  verify: nacl.sign.detached.verify,
+  randomBytes: nacl.randomBytes,
 } as Ed25519Helper;
