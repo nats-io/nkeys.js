@@ -13,3 +13,5 @@ test/
 TODO
 tsconfig.json
 typedoc.json
+coverage/
+.github/

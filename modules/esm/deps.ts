@@ -30,7 +30,6 @@ import nacl from "./tweetnacl.js";
 
 import type { Ed25519Helper } from "../../src/helper.ts";
 
-
 export const denoHelper = {
   fromSeed: nacl.sign.keyPair.fromSeed,
   sign: nacl.sign.detached,

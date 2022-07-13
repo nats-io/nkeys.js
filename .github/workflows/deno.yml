@@ -36,7 +36,7 @@ jobs:
         env:
           TMPDIR: ${{ runner.temp }}
           CI: true
-        run: deno test --failfast test/
+        run: deno test -A --unstable --failfast test/
 
       - name: build nkeys.mjs
         run: deno bundle modules/esm/mod.ts nkeys.mjs
