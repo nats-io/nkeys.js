@@ -1,21 +1,43 @@
-// this scripts parses the version of tweetnacl referenced
-// and uses the https://esm.sh service to convert it to an
-// esm module which we download from fastly and cache locally
-
+// this scripts parses the version of tweetnacl library
+// copies some of the source files from the library
+// while attribution of its origin, shims if necessary,
+// and reworking it to allow running it in different
+// runtimes
 import data from "../package.json" assert { type: "json" };
+const version = data.dependencies["tweetnacl"];
 
-async function get(u: string): Promise<string> {
-  const r = await fetch(u);
-  if (!r.ok) {
-    return Promise.reject(new Error(`error fetching ${u}`));
-  }
-  return await r.text();
+async function copyFromModulesDir(
+  from: string,
+  preamble = "",
+  tail = "",
+): Promise<void> {
+  const head = `// this source from node_modules/tweetnacl@${version}/${from}\n
+// deno-lint-ignore-file
+// deno-fmt-ignore-file
+
+`;
+
+  let src = await Deno.readTextFile(
+    `${Deno.cwd()}/node_modules/tweetnacl/${from}`,
+  );
+
+  src = src.replaceAll("self", "globalThis");
+
+  await Deno.writeTextFile(
+    `${Deno.cwd()}/modules/esm/${from}`,
+    head + preamble + src + tail,
+    {
+      create: true,
+    },
+  );
 }
 
-const version = data.dependencies["tweetnacl"];
-const url = `https://esm.sh/tweetnacl@${version}?target=es2022`;
-const code = await get(url);
-await Deno.writeTextFile(`${Deno.cwd()}/modules/esm/tweetnacl.js`, code, {create: true});
-
-
-
+await copyFromModulesDir(
+  "nacl.js",
+  "",
+  `
+//added by nkeys.js export it
+export const nacl = globalThis.nacl;
+`,
+);
+await copyFromModulesDir("nacl.d.ts");
