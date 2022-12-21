@@ -1182,5 +1182,5 @@ nacl.setPRNG = function(fn) {
 
 })(typeof module !== 'undefined' && module.exports ? module.exports : (globalThis.nacl = globalThis.nacl || {}));
 
-//added by nkeys.js export it
+//added by nkeys.js export it - this line is added by bin/tweetnacl-esm.ts
 export const nacl = typeof module !== 'undefined' && module.exports ? module.exports : globalThis.nacl;
