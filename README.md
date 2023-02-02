@@ -1,7 +1,7 @@
 # nkeys.js
 
-
-A public-key signature system based on Ed25519 for the [NATS ecosystem system](https://nats.io) for JavaScript.
+A public-key signature system based on Ed25519 for the
+[NATS ecosystem system](https://nats.io) for JavaScript.
 
 [![license](https://img.shields.io/github/license/nats-io/ts-nats.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![nkeys.js](https://github.com/aricart/nkeys.js/workflows/nkeys.js/badge.svg)](https://github.com/aricart/nkeys.js/actions)
@@ -11,33 +11,37 @@ A public-key signature system based on Ed25519 for the [NATS ecosystem system](h
 The nkeys.js library works in Deno, Node.js, and the browser!
 
 ## Installation
+
 For your Deno projects:
-```javascript
-import { createUser, fromPublic, fromSeed } from "https://deno.land/x/nkeys.js/modules/esm/mod.ts";
-```
 
-On node, and browsers you can get a build from npm:
-```bash
-npm install nkeys.js
-```
-
-In your node projects:
-```javascript
-  const {createUser, fromSeed, fromPublic} = require("nkeys.js");
-
-```
-
-On your browser projects, make available the `node/nkeys.js/nkeys.mjs`, and then
 ```javascript
 import {
   createUser,
   fromPublic,
   fromSeed,
-} from "https://host/path/nkeys.mjs";
+} from "https://deno.land/x/nkeys.js/modules/esm/mod.ts";
 ```
 
+On node, and browsers you can get a build from npm:
+
+```bash
+npm install nkeys.js
+```
+
+In your node projects:
+
+```javascript
+const { createUser, fromSeed, fromPublic } = require("nkeys.js");
+```
+
+On your browser projects, make available the `node/nkeys.js/nkeys.mjs`, and then
+
+```javascript
+import { createUser, fromPublic, fromSeed } from "https://host/path/nkeys.mjs";
+```
 
 ## Basic Usage
+
 The [documentation is here](https://nats-io.github.io/nkeys.js/)
 
 ```typescript
@@ -95,9 +99,11 @@ priv.clear();
 
 ## Supported Node Versions
 
-Our support policy for Nodejs versions follows [Nodejs release support](https://github.com/nodejs/Release).
-We will support and build nkeys.js on even-numbered Nodejs versions that are current or in LTS.
+Our support policy for Nodejs versions follows
+[Nodejs release support](https://github.com/nodejs/Release). We will support and
+build nkeys.js on even-numbered Nodejs versions that are current or in LTS.
 
 ## License
 
-Unless otherwise noted, the NATS source files are distributed under the Apache Version 2.0 license found in the LICENSE file.
+Unless otherwise noted, the NATS source files are distributed under the Apache
+Version 2.0 license found in the LICENSE file.
