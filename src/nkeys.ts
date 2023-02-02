@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 The NATS Authors
+ * Copyright 2018-2023 The NATS Authors
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -43,7 +43,7 @@ export function createAccount(): KeyPair {
 }
 
 /**
- * Creates a KeyPair with an user prefix
+ * Creates a KeyPair with a user prefix
  * @returns {KeyPair} Returns the created KeyPair.
  */
 export function createUser(): KeyPair {
@@ -66,7 +66,7 @@ export function createServer(): KeyPair {
 
 /**
  * Creates a KeyPair from a specified public key
- * @param {string} Public key in string format
+ * @param {string} src of the public key in string format.
  * @returns {KeyPair} Returns the created KeyPair.
  * @see KeyPair#getPublicKey
  */
@@ -82,7 +82,7 @@ export function fromPublic(src: string): KeyPair {
 
 /**
  * Creates a KeyPair from a specified seed.
- * @param {Uint8Array} The seed key in Uint8Array
+ * @param {Uint8Array} src of the seed key as Uint8Array
  * @returns {KeyPair} Returns the created KeyPair.
  * @see KeyPair#getSeed
  */

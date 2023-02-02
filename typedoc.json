@@ -1,7 +1,6 @@
 {
-    "readme": "none",
-    "theme": "default",
-    "out": "docs/",
-    "entryPoints": ["build/mod.ts"]
+  "readme": "none",
+  "theme": "default",
+  "out": "docs/",
+  "entryPoints": ["build/mod.ts"]
 }
-
