@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        deno-version: [1.37.2]
+        deno-version: [1.36.4]
         node-version: [21.x, 20.x, 18.x]
 
     steps:
@@ -25,15 +25,14 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: setup deno ${{ matrix.deno-version }}
-        uses: denoland/setup-deno@v1.1.1
-        with:
-          deno-version: ${{ matrix.deno-version }}
-
-      - name: setup nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Use Deno Version ${{ matrix.deno-version }}
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno-version }}
 
       - run: npm ci
       - run: npm test

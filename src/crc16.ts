@@ -285,7 +285,7 @@ export class crc16 {
     let crc: number = 0;
     for (let i = 0; i < data.byteLength; i++) {
       let b = data[i];
-      crc = ((crc << 8) & 0xffff) ^ crc16tab[((crc >> 8) ^ (b)) & 0x00FF];
+      crc = ((crc << 8) & 0xffff) ^ crc16tab[((crc >> 8) ^ b) & 0x00FF];
     }
     return crc;
   }
