@@ -13,7 +13,9 @@
     "stage": "npm run init && npm run cjs && npm run generate && tsc",
     "prepare": "npm run stage && npm run generate && deno bundle modules/esm/mod.ts nkeys.mjs && tsc",
     "test": "npm run prepare && ava --verbose && deno test -A --unstable test/",
-    "doc": "npm run clean && rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll"
+    "doc": "npm run clean && rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll",
+    "bump-qualifier": "npm version prerelease --no-commit-hooks --no-git-tag-version",
+    "bump-release": "npm version patch --no-commit-hooks --no-git-tag-version"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -33,10 +35,10 @@
     "tweetnacl": "1.0.3"
   },
   "devDependencies": {
-    "@types/node": "^18.11.x",
-    "ava": "^5.1.x",
-    "typedoc": "^0.23.x",
-    "typescript": "^4.9.x"
+    "@types/node": "^20.8.x",
+    "ava": "^5.2.x",
+    "typedoc": "^0.25.x",
+    "typescript": "^5.2.x"
   },
   "ava": {
     "failFast": true,

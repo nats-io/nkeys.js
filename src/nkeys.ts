@@ -143,6 +143,8 @@ export interface KeyPair {
  * @ignore
  */
 export enum Prefix {
+  Unknown = -1,
+
   //Seed is the version byte used for encoded NATS Seeds
   Seed = 18 << 3, // Base32-encodes to 'S...'
 
@@ -185,7 +187,7 @@ export class Prefixes {
 
   static isValidPrefix(prefix: Prefix): boolean {
     let v = this.parsePrefix(prefix);
-    return v != -1;
+    return v !== Prefix.Unknown;
   }
 
   static parsePrefix(v: number): Prefix {
@@ -205,7 +207,7 @@ export class Prefixes {
       case Prefix.User:
         return Prefix.User;
       default:
-        return -1;
+        return Prefix.Unknown;
     }
   }
 }

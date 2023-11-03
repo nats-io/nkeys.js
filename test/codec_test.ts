@@ -28,6 +28,7 @@ Deno.test("codec - should fail to encode non Uint8Array", () => {
 Deno.test("codec - should fail to encode with invalid prefix", () => {
   assertThrowsErrorCode(() => {
     const rand = globalThis.crypto.getRandomValues(new Uint8Array(32));
+    //@ts-ignore: test
     Codec.encode(13, rand);
   }, NKeysErrorCode.InvalidPrefixByte);
 });

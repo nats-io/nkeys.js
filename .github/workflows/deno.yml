@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        deno-version: [1.30.0]
+        deno-version: [1.36.4]
 
     steps:
       - name: checkout project
@@ -24,8 +24,8 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: setup deno ${{ matrix.deno-version }}
-        uses: denoland/setup-deno@v1.1.1
+      - name: Use Deno Version ${{ matrix.deno-version }}
+        uses: denoland/setup-deno@v1
         with:
           deno-version: ${{ matrix.deno-version }}
 
