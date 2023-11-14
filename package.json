@@ -15,7 +15,8 @@
     "test": "npm run prepare && ava --verbose && deno test -A --unstable test/",
     "doc": "npm run clean && rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll",
     "bump-qualifier": "npm version prerelease --no-commit-hooks --no-git-tag-version",
-    "bump-release": "npm version patch --no-commit-hooks --no-git-tag-version"
+    "bump-release": "npm version patch --no-commit-hooks --no-git-tag-version",
+    "check-package": "deno run --allow-all bin/check-bundle-version.ts"
   },
   "engines": {
     "node": ">=10.0.0"
