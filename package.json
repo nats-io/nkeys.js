@@ -1,6 +1,6 @@
 {
   "name": "nkeys.js",
-  "version": "1.0.6-0",
+  "version": "1.0.6-1",
   "description": "A public-key signature system based on Ed25519 for the NATS ecosystem in javascript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com//nats-io/nkeys.js"
+    "url": "https://github.com/nats-io/nkeys.js"
   },
   "keywords": [
     "nats",
