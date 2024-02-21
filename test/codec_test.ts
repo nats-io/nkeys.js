@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The NATS Authors
+ * Copyright 2018-2024 The NATS Authors
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,7 +20,7 @@ import { NKeysErrorCode, Prefix } from "../src/nkeys.ts";
 
 Deno.test("codec - should fail to encode non Uint8Array", () => {
   assertThrowsErrorCode(() => {
-    //@ts-ignore
+    //@ts-ignore: negative test
     Codec.encode(Prefix.Private, 10);
   }, NKeysErrorCode.SerializationError);
 });
@@ -67,7 +67,7 @@ Deno.test("codec - should encode and decode seed", () => {
   assertEquals(enc[0], "S".charCodeAt(0));
   assertEquals(enc[1], "A".charCodeAt(0));
 
-  let seed = Codec.decodeSeed(enc);
+  const seed = Codec.decodeSeed(enc);
   assertEquals(seed.prefix, Prefix.Account);
   assertEquals(seed.buf, rand);
 });
@@ -86,38 +86,38 @@ Deno.test("codec - should fail to short string", () => {
 
 Deno.test("codec - decode with invalid role should fail", () => {
   const rand = globalThis.crypto.getRandomValues(new Uint8Array(32));
-  //@ts-ignore
+  //@ts-ignore: negative test
   const badSeed = Codec._encode(false, "R", rand);
   assertThrowsErrorCode(() => {
-    //@ts-ignore
+    //@ts-ignore: negative test
     Codec.decode("Z", badSeed);
   }, NKeysErrorCode.InvalidPrefixByte);
 });
 
 Deno.test("codec - encode seed requires buffer", () => {
-  //@ts-ignore
+  //@ts-ignore: negative test
   assertThrowsErrorCode(() => {
-    //@ts-ignore
+    //@ts-ignore: negative test
     Codec.encodeSeed(false, Prefix.Account, "foo");
   }, NKeysErrorCode.ApiError);
 });
 
 Deno.test("codec - decodeSeed with invalid role should fail", () => {
   const rand = globalThis.crypto.getRandomValues(new Uint8Array(32));
-  const badRole = 23 << 3; // X
-  //@ts-ignore
+  const badRole = 24 << 3; // Y
+  //@ts-ignore: negative test
   const badSeed = Codec._encode(true, badRole, rand);
   assertThrowsErrorCode(() => {
-    //@ts-ignore
+    //@ts-ignore: negative test
     Codec.decodeSeed(badSeed);
   }, NKeysErrorCode.InvalidPrefixByte);
 });
 
 Deno.test("codec - decode unexpected prefix should fail", () => {
   const rand = globalThis.crypto.getRandomValues(new Uint8Array(32));
-  let seed = Codec._encode(false, Prefix.Account, rand);
+  const seed = Codec._encode(false, Prefix.Account, rand);
   assertThrowsErrorCode(() => {
-    //@ts-ignore
+    //@ts-ignore: negative test
     Codec.decode(Prefix.User, seed);
   }, NKeysErrorCode.InvalidPrefixByte);
 });

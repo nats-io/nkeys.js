@@ -12,6 +12,9 @@ const helper = {
   verify: nacl.sign.detached.verify,
   fromSeed: nacl.sign.keyPair.fromSeed,
   sign: nacl.sign.detached,
+  scalarBaseMultiply: nacl.scalarMult.base,
+  seal: nacl.box,
+  open: nacl.box.open,
 };
 
 // This here to support node 10.

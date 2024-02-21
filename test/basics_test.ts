@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The NATS Authors
+ * Copyright 2018-2024 The NATS Authors
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -95,7 +95,7 @@ Deno.test("basics - should fail with non public prefix", () => {
 
 Deno.test("basics - should fail getting public key on bad seed", () => {
   assertThrowsErrorCode(() => {
-    let kp = new KP(new TextEncoder().encode("SEEDBAD"));
+    const kp = new KP(new TextEncoder().encode("SEEDBAD"));
     kp.getPublicKey();
     createPair(Prefix.Private);
   }, NKeysErrorCode.InvalidChecksum);
@@ -103,7 +103,7 @@ Deno.test("basics - should fail getting public key on bad seed", () => {
 
 Deno.test("basics - should fail getting private key on bad seed", () => {
   assertThrowsErrorCode(() => {
-    let kp = new KP(new TextEncoder().encode("SEEDBAD"));
+    const kp = new KP(new TextEncoder().encode("SEEDBAD"));
     kp.getPrivateKey();
     createPair(Prefix.Private);
   }, NKeysErrorCode.InvalidChecksum);
@@ -111,15 +111,15 @@ Deno.test("basics - should fail getting private key on bad seed", () => {
 
 Deno.test("basics - should fail signing on bad seed", () => {
   assertThrowsErrorCode(() => {
-    let kp = new KP(new TextEncoder().encode("SEEDBAD"));
+    const kp = new KP(new TextEncoder().encode("SEEDBAD"));
     kp.sign(new TextEncoder().encode("HelloWorld"));
     createPair(Prefix.Private);
   }, NKeysErrorCode.InvalidChecksum);
 });
 
 function badKey(): Uint8Array {
-  let a = createAccount();
-  let pk = new TextEncoder().encode(a.getPublicKey());
+  const a = createAccount();
+  const pk = new TextEncoder().encode(a.getPublicKey());
   pk[pk.byteLength - 1] = "0".charCodeAt(0);
   pk[pk.byteLength - 2] = "0".charCodeAt(0);
   return pk;
@@ -170,14 +170,14 @@ Deno.test("basics - fromPublicKey should reject bad checksum", () => {
 Deno.test("basics - should reject decoding seed bad checksum", () => {
   assertThrowsErrorCode(() => {
     const a = createAccount();
-    let pk = a.getPublicKey();
+    const pk = a.getPublicKey();
     Codec.decodeSeed(new TextEncoder().encode(pk));
   }, NKeysErrorCode.InvalidSeed);
 });
 
 function generateBadSeed(): Uint8Array {
   const a = createAccount();
-  let seed = a.getSeed();
+  const seed = a.getSeed();
   seed[1] = "S".charCodeAt(0);
   return seed;
 }
@@ -223,11 +223,11 @@ Deno.test("basics - from public rejects non-public keys", () => {
 });
 
 Deno.test("basics - test valid prefixes", () => {
-  let valid = ["S", "P", "O", "N", "C", "A", "U"];
+  const valid = ["S", "P", "O", "N", "C", "A", "U", "X"];
   valid.forEach((v: string) => {
     assert(Prefixes.startsWithValidPrefix(v));
   });
-  const b32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=";
+  const b32 = "ABCDEFGHIJKLMNOPQRSTUVWYZ234567=";
   b32.split("").forEach((c: string) => {
     const ok = valid.indexOf(c) !== -1;
     if (ok) {
@@ -236,6 +236,82 @@ Deno.test("basics - test valid prefixes", () => {
       assert(!Prefixes.startsWithValidPrefix(c), `expected ${c} to fail`);
     }
   });
+});
+
+Deno.test("basics - getSeed() fails if cleared", () => {
+  const a = createAccount();
+  a.clear();
+  assertThrowsErrorCode(() => {
+    a.getSeed();
+  }, NKeysErrorCode.ClearedPair);
+});
+
+Deno.test("basics - getRawSeed() fails if cleared", () => {
+  const a = createAccount() as KP;
+  a.clear();
+  assertThrowsErrorCode(() => {
+    a.getRawSeed();
+  }, NKeysErrorCode.ClearedPair);
+});
+
+Deno.test("basics - clear() clear() is noop", () => {
+  const a = createAccount();
+  a.clear();
+  a.clear();
+});
+
+Deno.test("basics - verify fails if cleared", () => {
+  const a = createAccount();
+  a.clear();
+  assertThrowsErrorCode(() => {
+    a.verify(new Uint8Array(0), new Uint8Array(0));
+  }, NKeysErrorCode.ClearedPair);
+});
+
+Deno.test("basics - kp fails seal", () => {
+  const a = createAccount();
+  assertThrowsErrorCode(() => {
+    a.seal(new Uint8Array(0), "");
+  }, NKeysErrorCode.InvalidNKeyOperation);
+});
+
+Deno.test("basics - kp fails open", () => {
+  const a = createAccount();
+  assertThrowsErrorCode(() => {
+    a.open(new Uint8Array(0), "");
+  }, NKeysErrorCode.InvalidNKeyOperation);
+});
+
+Deno.test("basics - public verify fails if cleared", () => {
+  const a = createAccount();
+  const pk = fromPublic(a.getPublicKey());
+  pk.clear();
+  assertThrowsErrorCode(() => {
+    pk.verify(new Uint8Array(0), new Uint8Array(0));
+  }, NKeysErrorCode.ClearedPair);
+});
+
+Deno.test("basics - public fails seal", () => {
+  const a = createAccount();
+  const pk = fromPublic(a.getPublicKey());
+  assertThrowsErrorCode(() => {
+    pk.seal(new Uint8Array(0), "");
+  }, NKeysErrorCode.InvalidNKeyOperation);
+});
+
+Deno.test("basics - public clear() clear() is noop", () => {
+  const a = createAccount();
+  const pk = fromPublic(a.getPublicKey());
+  pk.clear();
+  pk.clear();
+});
+
+Deno.test("basics - public fails open", () => {
+  const a = createAccount();
+  const pk = fromPublic(a.getPublicKey());
+  assertThrowsErrorCode(() => {
+    pk.open(new Uint8Array(0), "");
+  }, NKeysErrorCode.InvalidNKeyOperation);
 });
 
 function testClear(kp: KeyPair) {

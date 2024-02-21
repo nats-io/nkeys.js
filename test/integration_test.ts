@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 The NATS Authors
+ * Copyright 2018-2024 The NATS Authors
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,7 +23,7 @@ import { Codec } from "../src/codec.ts";
 import { Prefix } from "../src/nkeys.ts";
 
 // this was generated using nkey api in go
-let data = {
+const data = {
   "seed": "SAAFYOZ5U4UBAJMHPITLSKDWAFBJNWH53K7LPZDQKOC5TXAGBIP4DY4WCA",
   "public_key": "AAASUT7FDZDS6UCTBE7JQS2G6KUZBJC5YW7VFVK45JLUK3UDVA6NXJWD",
   "private_key":
@@ -36,8 +36,8 @@ let data = {
 Deno.test("integration - verify", () => {
   const te = new TextEncoder();
   const pk = fromPublic(data.public_key);
-  let nonce = te.encode(data.nonce);
-  let sig = decode(data.sig);
+  const nonce = te.encode(data.nonce);
+  const sig = decode(data.sig);
   assert(pk.verify(nonce, sig));
 
   const seed = fromSeed(te.encode(data.seed));
@@ -48,7 +48,7 @@ Deno.test("integration - verify", () => {
 });
 
 Deno.test("integration - encoded seed returns stable values albertor", () => {
-  let data = {
+  const data = {
     "seed": "SUAGC3DCMVZHI33SMFWGEZLSORXXEYLMMJSXE5DPOJQWYYTFOJ2G64VAPY",
     "public_key": "UAHJLSMYZDJCBHQ2SARL37IEALR3TI7VVPZ2MJ7F4SZKNOG7HJJIYW5T",
     "private_key":

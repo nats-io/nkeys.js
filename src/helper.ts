@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The NATS Authors
+ * Copyright 2020-2024 The NATS Authors
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -27,6 +27,19 @@ export interface Ed25519Helper {
   sign(data: Uint8Array, key: Uint8Array): Uint8Array;
   verify(data: Uint8Array, sig: Uint8Array, pub: Uint8Array): boolean;
   randomBytes(len: number): Uint8Array;
+  scalarBaseMultiply(n: Uint8Array): Uint8Array;
+  seal(
+    data: Uint8Array,
+    nonce: Uint8Array,
+    pub: Uint8Array,
+    key: Uint8Array,
+  ): Uint8Array;
+  open(
+    data: Uint8Array,
+    nonce: Uint8Array,
+    pub: Uint8Array,
+    key: Uint8Array,
+  ): Uint8Array;
 }
 /**
  * @ignore

@@ -35,4 +35,7 @@ export const denoHelper = {
   sign: nacl.sign.detached,
   verify: nacl.sign.detached.verify,
   randomBytes: nacl.randomBytes,
+  scalarBaseMultiply: nacl.scalarMult.base,
+  seal: nacl.box,
+  open: nacl.box.open,
 } as Ed25519Helper;

@@ -1,18 +1,19 @@
 {
   "name": "nkeys.js",
-  "version": "1.0.6-1",
+  "version": "1.1.0-1",
   "description": "A public-key signature system based on Ed25519 for the NATS ecosystem in javascript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "init": "mkdir -p build",
-    "clean": "rm -Rf build/ lib/ nkeys.d.ts nkeys.mjs",
+    "clean": "rm -Rf build/ lib/ nkeys.d.ts nkeys.mjs ./coverage",
     "fmt": "deno fmt src/ examples/ modules/ test/ node_test/",
     "cjs": "deno run --allow-all bin/cjs-fix-imports.ts -o build/ src/ modules/cjs/ node_test/",
-    "generate": "deno run -A --unstable ./bin/tweetnacl-esm.ts",
+    "generate": "deno run -A ./bin/tweetnacl-esm.ts",
     "stage": "npm run init && npm run cjs && npm run generate && tsc",
     "prepare": "npm run stage && npm run generate && deno bundle modules/esm/mod.ts nkeys.mjs && tsc",
-    "test": "npm run prepare && ava --verbose && deno test -A --unstable test/",
+    "test": "npm run prepare && ava --verbose && deno test -A test/",
+    "cover": "npm run clean && npm run prepare && deno test --coverage=coverage -A test/ && deno coverage ./coverage --lcov > ./coverage/out.lcov && genhtml -o ./coverage/html ./coverage/out.lcov && open ./coverage/html/index.html",
     "doc": "npm run clean && rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll",
     "bump-qualifier": "npm version prerelease --no-commit-hooks --no-git-tag-version",
     "bump-release": "npm version patch --no-commit-hooks --no-git-tag-version",
@@ -36,10 +37,10 @@
     "tweetnacl": "1.0.3"
   },
   "devDependencies": {
-    "@types/node": "^20.8.x",
-    "ava": "^5.2.x",
-    "typedoc": "^0.25.x",
-    "typescript": "^5.2.x"
+    "@types/node": "^20.11.x",
+    "ava": "^6.1.x",
+    "typedoc": "^0.25.8",
+    "typescript": "^5.3.3"
   },
   "ava": {
     "failFast": true,
