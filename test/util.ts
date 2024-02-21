@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 The NATS Authors
+ * Copyright 2018-2024 The NATS Authors
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
 
 import { assert, fail } from "https://deno.land/std@0.75.0/testing/asserts.ts";
 
-export function assertThrowsErrorCode(fn: () => any, ...codes: string[]) {
+export function assertThrowsErrorCode(fn: () => unknown, ...codes: string[]) {
   try {
     fn();
     fail("failed to throw error");
@@ -31,8 +31,8 @@ export function assertErrorCode(err: Error, ...codes: string[]) {
   const ok = codes.find((c) => {
     return code === c;
   });
-  if (!ok) {
-    debugger;
-  }
+  // if (!ok) {
+  //   debugger;
+  // }
   assert(ok);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 The NATS Authors
+ * Copyright 2018-2024 The NATS Authors
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -69,5 +69,13 @@ export class PublicKey implements KeyPair {
     }
     this.publicKey.fill(0);
     this.publicKey = undefined;
+  }
+
+  seal(input: Uint8Array, recipient: string, nonce?: Uint8Array): Uint8Array {
+    throw new NKeysError(NKeysErrorCode.InvalidNKeyOperation);
+  }
+
+  open(message: Uint8Array, sender: string): Uint8Array | null {
+    throw new NKeysError(NKeysErrorCode.InvalidNKeyOperation);
   }
 }

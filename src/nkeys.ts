@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 The NATS Authors
+ * Copyright 2018-2024 The NATS Authors
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,14 +16,18 @@ import { KP } from "./kp.ts";
 import { PublicKey } from "./public.ts";
 import { Codec } from "./codec.ts";
 import { getEd25519Helper } from "./helper.ts";
+import { curveKeyLen, CurveKP } from "./curve.ts";
 
 /**
  * @ignore
  */
 export function createPair(prefix: Prefix): KeyPair {
-  const rawSeed = getEd25519Helper().randomBytes(32);
+  const len = prefix === Prefix.Curve ? curveKeyLen : 32;
+  const rawSeed = getEd25519Helper().randomBytes(len);
   let str = Codec.encodeSeed(prefix, new Uint8Array(rawSeed));
-  return new KP(str);
+  return prefix === Prefix.Curve
+    ? new CurveKP(new Uint8Array(rawSeed))
+    : new KP(str);
 }
 
 /**
@@ -65,6 +69,13 @@ export function createServer(): KeyPair {
 }
 
 /**
+ * @ignore
+ */
+export function createCurve(): KeyPair {
+  return createPair(Prefix.Curve);
+}
+
+/**
  * Creates a KeyPair from a specified public key
  * @param {string} src of the public key in string format.
  * @returns {KeyPair} Returns the created KeyPair.
@@ -80,6 +91,17 @@ export function fromPublic(src: string): KeyPair {
   throw new NKeysError(NKeysErrorCode.InvalidPublicKey);
 }
 
+export function fromCurveSeed(src: Uint8Array): KeyPair {
+  const sd = Codec.decodeSeed(src);
+  if (sd.prefix !== Prefix.Curve) {
+    throw new NKeysError(NKeysErrorCode.InvalidCurveSeed);
+  }
+  if (sd.buf.byteLength !== curveKeyLen) {
+    throw new NKeysError(NKeysErrorCode.InvalidSeedLen);
+  }
+  return new CurveKP(sd.buf);
+}
+
 /**
  * Creates a KeyPair from a specified seed.
  * @param {Uint8Array} src of the seed key as Uint8Array
@@ -87,8 +109,11 @@ export function fromPublic(src: string): KeyPair {
  * @see KeyPair#getSeed
  */
 export function fromSeed(src: Uint8Array): KeyPair {
-  Codec.decodeSeed(src);
-  // if we are here it decoded
+  const sd = Codec.decodeSeed(src);
+  // if we are here it decoded properly
+  if (sd.prefix === Prefix.Curve) {
+    return fromCurveSeed(src);
+  }
   return new KP(src);
 }
 
@@ -137,6 +162,10 @@ export interface KeyPair {
    * a keypair cannot be used or recovered.
    */
   clear(): void;
+
+  seal(input: Uint8Array, recipient: string, nonce?: Uint8Array): Uint8Array;
+
+  open(message: Uint8Array, sender: string): Uint8Array | null;
 }
 
 /**
@@ -165,6 +194,8 @@ export enum Prefix {
 
   //PrefixByteUser is the version byte used for encoded NATS Users
   User = 20 << 3, // Base32-encodes to 'U...'
+
+  Curve = 23 << 3, // Base32-encodes to 'X...'
 }
 
 /**
@@ -176,13 +207,14 @@ export class Prefixes {
       prefix == Prefix.Operator ||
       prefix == Prefix.Cluster ||
       prefix == Prefix.Account ||
-      prefix == Prefix.User;
+      prefix == Prefix.User ||
+      prefix == Prefix.Curve;
   }
 
   static startsWithValidPrefix(s: string) {
     let c = s[0];
     return c == "S" || c == "P" || c == "O" || c == "N" || c == "C" ||
-      c == "A" || c == "U";
+      c == "A" || c == "U" || c == "X";
   }
 
   static isValidPrefix(prefix: Prefix): boolean {
@@ -206,6 +238,8 @@ export class Prefixes {
         return Prefix.Account;
       case Prefix.User:
         return Prefix.User;
+      case Prefix.Curve:
+        return Prefix.Curve;
       default:
         return Prefix.Unknown;
     }
@@ -221,8 +255,13 @@ export enum NKeysErrorCode {
   InvalidPublicKey = "nkeys: invalid public key",
   InvalidSeedLen = "nkeys: invalid seed length",
   InvalidSeed = "nkeys: invalid seed",
+  InvalidCurveSeed = "nkeys: invalid curve seed",
+  InvalidCurveKey = "nkeys: not a valid curve key",
+  InvalidCurveOperation = "nkeys: curve key is not valid for sign/verify",
+  InvalidNKeyOperation = "keys: only curve key can seal/open",
   InvalidEncoding = "nkeys: invalid encoded key",
-  InvalidSignature = "nkeys: signature verification failed",
+  InvalidRecipient = "nkeys: not a valid recipient public curve key",
+  InvalidEncrypted = "nkeys: encrypted input is not valid",
   CannotSign = "nkeys: cannot sign, no private key available",
   PublicKeyOnly = "nkeys: no seed or private key available",
   InvalidChecksum = "nkeys: invalid checksum",
