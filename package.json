@@ -1,6 +1,6 @@
 {
   "name": "nkeys.js",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A public-key signature system based on Ed25519 for the NATS ecosystem in javascript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -37,10 +37,10 @@
     "tweetnacl": "1.0.3"
   },
   "devDependencies": {
-    "@types/node": "^20.11.x",
-    "ava": "^6.1.x",
-    "typedoc": "^0.25.8",
-    "typescript": "^5.3.3"
+    "@types/node": "^20.12.10",
+    "ava": "^6.1.3",
+    "typedoc": "^0.25.13",
+    "typescript": "^5.4.5"
   },
   "ava": {
     "failFast": true,
