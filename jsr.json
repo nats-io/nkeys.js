@@ -11,7 +11,8 @@
       "MANTAINERS.md",
       "README.md",
       "./modules/esm/*",
-      "./src/**/*"
+      "./src/**/*",
+      "jsr.json"
     ]
   }
 }
