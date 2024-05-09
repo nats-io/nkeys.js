@@ -10,7 +10,8 @@
       "CODE-OF-CONDUCT.md",
       "MANTAINERS.md",
       "README.md",
-      "./modules/esm/mod.ts"
+      "./modules/esm/*",
+      "./src/**/*"
     ]
   }
 }
