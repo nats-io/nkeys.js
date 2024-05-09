@@ -1,7 +1,16 @@
 {
   "name": "@nats-io/nkeys",
-  "version": "1.1.0",
+  "version": "1.1.0-1",
   "exports": {
     ".": "./modules/esm/mod.ts"
+  },
+  "publish": {
+    "include": [
+      "LICENSE",
+      "CODE-OF-CONDUCT.md",
+      "MANTAINERS.md",
+      "README.md",
+      "./modules/esm/mod.ts"
+    ]
   }
 }
