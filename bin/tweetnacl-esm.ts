@@ -3,7 +3,7 @@
 // while attribution of its origin, shims if necessary,
 // and reworking it to allow running it in different
 // runtimes
-import data from "../package.json" assert { type: "json" };
+import data from "../package.json" with { type: "json" };
 const version = data.dependencies["tweetnacl"];
 
 async function copyFromModulesDir(

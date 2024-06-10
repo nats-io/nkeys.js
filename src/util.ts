@@ -40,7 +40,7 @@ export function dump(buf: Uint8Array, msg?: string): void {
   if (msg) {
     console.log(msg);
   }
-  let a: string[] = [];
+  const a: string[] = [];
   for (let i = 0; i < buf.byteLength; i++) {
     if (i % 8 === 0) {
       a.push("\n");

@@ -103,7 +103,7 @@ export class CurveKP implements KeyPair {
     if (!nonce) {
       nonce = getEd25519Helper().randomBytes(curveNonceLen);
     }
-    let pub = this.decodePubCurveKey(recipient);
+    const pub = this.decodePubCurveKey(recipient);
 
     // prefix a header to the nonce
     const out = new Uint8Array(XKeyVersionV1.length + curveNonceLen);

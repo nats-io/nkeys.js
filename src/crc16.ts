@@ -284,7 +284,7 @@ export class crc16 {
   static checksum(data: Uint8Array): number {
     let crc: number = 0;
     for (let i = 0; i < data.byteLength; i++) {
-      let b = data[i];
+      const b = data[i];
       crc = ((crc << 8) & 0xffff) ^ crc16tab[((crc >> 8) ^ b) & 0x00FF];
     }
     return crc;
@@ -292,7 +292,7 @@ export class crc16 {
 
   // validate will check the calculated crc16 checksum for data against the expected.
   static validate(data: Uint8Array, expected: number): boolean {
-    let ba = crc16.checksum(data);
+    const ba = crc16.checksum(data);
     return ba == expected;
   }
 }

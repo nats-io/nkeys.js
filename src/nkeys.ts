@@ -24,7 +24,7 @@ import { curveKeyLen, CurveKP } from "./curve.ts";
 export function createPair(prefix: Prefix): KeyPair {
   const len = prefix === Prefix.Curve ? curveKeyLen : 32;
   const rawSeed = getEd25519Helper().randomBytes(len);
-  let str = Codec.encodeSeed(prefix, new Uint8Array(rawSeed));
+  const str = Codec.encodeSeed(prefix, new Uint8Array(rawSeed));
   return prefix === Prefix.Curve
     ? new CurveKP(new Uint8Array(rawSeed))
     : new KP(str);
@@ -212,13 +212,13 @@ export class Prefixes {
   }
 
   static startsWithValidPrefix(s: string) {
-    let c = s[0];
+    const c = s[0];
     return c == "S" || c == "P" || c == "O" || c == "N" || c == "C" ||
       c == "A" || c == "U" || c == "X";
   }
 
   static isValidPrefix(prefix: Prefix): boolean {
-    let v = this.parsePrefix(prefix);
+    const v = this.parsePrefix(prefix);
     return v !== Prefix.Unknown;
   }
 
