@@ -30,7 +30,7 @@ export class KP implements KeyPair {
     if (!this.seed) {
       throw new NKeysError(NKeysErrorCode.ClearedPair);
     }
-    let sd = Codec.decodeSeed(this.seed);
+    const sd = Codec.decodeSeed(this.seed);
     return sd.buf;
   }
 
@@ -83,11 +83,11 @@ export class KP implements KeyPair {
     this.seed = undefined;
   }
 
-  seal(input: Uint8Array, recipient: string, nonce?: Uint8Array): Uint8Array {
+  seal(_: Uint8Array, _recipient: string, _nonce?: Uint8Array): Uint8Array {
     throw new NKeysError(NKeysErrorCode.InvalidNKeyOperation);
   }
 
-  open(message: Uint8Array, sender: string): Uint8Array | null {
+  open(_: Uint8Array, _sender: string): Uint8Array | null {
     throw new NKeysError(NKeysErrorCode.InvalidNKeyOperation);
   }
 }

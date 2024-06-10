@@ -1,12 +1,7 @@
-import { parse } from "https://deno.land/std@0.75.0/flags/mod.ts";
-import {
-  basename,
-  extname,
-  join,
-  resolve,
-} from "https://deno.land/std@0.75.0/path/mod.ts";
+import { parseArgs } from "jsr:@std/cli/parse-args";
+import { basename, extname, join, resolve } from "jsr:@std/path";
 
-const argv = parse(
+const argv = parseArgs(
   Deno.args,
   {
     alias: {
@@ -21,7 +16,7 @@ const argv = parse(
 );
 
 // resolve the specified directories to fq
-let dirs = (argv._ as string[]).map((n) => {
+const dirs = (argv._ as string[]).map((n) => {
   return resolve(n);
 });
 // resolve the out dir
@@ -63,7 +58,7 @@ await Deno.lstat(out)
 // process each file - remove extensions from requires/import
 for (const fn of files) {
   const data = await Deno.readFile(fn);
-  let txt = new TextDecoder().decode(data);
+  const txt = new TextDecoder().decode(data);
   let mod = txt.replace(/from\s+"(\S+).[t|j]s"/gim, 'from "$1"');
   mod = mod.replace(/require\("(\S+).[j|t]s"\)/gim, 'require("$1")');
   const target = join(out, basename(fn));

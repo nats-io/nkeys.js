@@ -59,7 +59,7 @@ export class PublicKey implements KeyPair {
     if (!this.publicKey) {
       throw new NKeysError(NKeysErrorCode.ClearedPair);
     }
-    let buf = Codec._decode(this.publicKey);
+    const buf = Codec._decode(this.publicKey);
     return getEd25519Helper().verify(input, sig, buf.slice(1));
   }
 
@@ -71,11 +71,11 @@ export class PublicKey implements KeyPair {
     this.publicKey = undefined;
   }
 
-  seal(input: Uint8Array, recipient: string, nonce?: Uint8Array): Uint8Array {
+  seal(_: Uint8Array, _recipient: string, _nonce?: Uint8Array): Uint8Array {
     throw new NKeysError(NKeysErrorCode.InvalidNKeyOperation);
   }
 
-  open(message: Uint8Array, sender: string): Uint8Array | null {
+  open(_: Uint8Array, _sender: string): Uint8Array | null {
     throw new NKeysError(NKeysErrorCode.InvalidNKeyOperation);
   }
 }

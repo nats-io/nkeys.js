@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 //
-const test = require("ava");
+const test = require("node:test");
+const assert = require("node:assert");
+
 const {
   createAccount,
   createOperator,
@@ -32,90 +34,99 @@ const {
 
 const { Codec } = require("../lib/codec");
 
-function testClear(t, kp) {
+function throws(fn, errCode) {
+  try {
+    fn();
+  } catch (err) {
+    const { code } = err;
+    assert.strictEqual(code, errCode);
+  }
+}
+
+function testClear(kp) {
   kp.clear();
 
-  t.throws(() => {
+  throws(() => {
     kp.getPublicKey();
-  }, { code: NKeysErrorCode.ClearedPair });
+  }, NKeysErrorCode.ClearedPair);
 
-  t.throws(() => {
+  throws(() => {
     kp.getPrivateKey();
-  }, { code: NKeysErrorCode.ClearedPair });
+  }, NKeysErrorCode.ClearedPair);
 
-  t.throws(() => {
+  throws(() => {
     kp.getSeed();
-  }, { code: NKeysErrorCode.ClearedPair });
+  }, NKeysErrorCode.ClearedPair);
 
-  t.throws(() => {
+  throws(() => {
     const data = new TextEncoder().encode("hello");
     kp.sign(data);
-  }, { code: NKeysErrorCode.ClearedPair });
+  }, NKeysErrorCode.ClearedPair);
 
-  t.throws(() => {
+  throws(() => {
     const data = new TextEncoder().encode("hello");
     const sig = kp.sign(data);
     kp.verify(data, sig);
-  }, { code: NKeysErrorCode.ClearedPair });
+  }, NKeysErrorCode.ClearedPair);
 }
 
-function doTest(t, kp, kind) {
-  t.truthy(kp);
+function doTest(kp, kind) {
+  assert.ok(kp);
 
   const seed = kp.getSeed();
-  t.is(seed[0], "S".charCodeAt(0));
-  t.is(seed[1], kind.charCodeAt(0));
+  assert.strictEqual(seed[0], "S".charCodeAt(0));
+  assert.strictEqual(seed[1], kind.charCodeAt(0));
 
   const publicKey = kp.getPublicKey();
-  t.is(publicKey[0], kind.charAt(0));
+  assert.strictEqual(publicKey[0], kind.charAt(0));
 
   const data = new TextEncoder().encode("HelloWorld");
   const sig = kp.sign(data);
-  t.is(sig.length, 64);
-  t.true(kp.verify(data, sig));
+  assert.strictEqual(sig.length, 64);
+  assert.strictEqual(kp.verify(data, sig), true);
 
   const sk = fromSeed(seed);
-  t.true(sk.verify(data, sig));
+  assert.strictEqual(sk.verify(data, sig), true);
 
   const pub = fromPublic(publicKey);
-  t.is(pub.getPublicKey(), publicKey);
-  t.true(pub.verify(data, sig));
+  assert.strictEqual(pub.getPublicKey(), publicKey);
+  assert.strictEqual(pub.verify(data, sig), true);
 
-  t.throws(() => {
+  throws(() => {
     pub.getPrivateKey();
-  }, { code: NKeysErrorCode.PublicKeyOnly });
-  t.true(pub.verify(data, sig));
+  }, NKeysErrorCode.PublicKeyOnly);
+  assert.strictEqual(pub.verify(data, sig), true);
 
-  t.throws(() => {
+  throws(() => {
     pub.getSeed();
-  }, { code: NKeysErrorCode.PublicKeyOnly });
+  }, NKeysErrorCode.PublicKeyOnly);
 
-  testClear(t, kp);
-  testClear(t, pub);
+  testClear(kp);
+  testClear(pub);
 }
 
-test("basics - operator", (t) => {
-  doTest(t, createOperator(), "O");
+test("basics - operator", () => {
+  doTest(createOperator(), "O");
 });
 
-test("basics - account", (t) => {
-  doTest(t, createAccount(), "A");
+test("basics - account", () => {
+  doTest(createAccount(), "A");
 });
 
-test("basics - user", (t) => {
-  doTest(t, createUser(), "U");
+test("basics - user", () => {
+  doTest(createUser(), "U");
 });
 
-test("basics - cluster", (t) => {
-  doTest(t, createCluster(), "C");
+test("basics - cluster", () => {
+  doTest(createCluster(), "C");
 });
 
-test("basics - server", (t) => {
-  doTest(t, createServer(), "N");
+test("basics - server", () => {
+  doTest(createServer(), "N");
 });
 
-test("integration - verify", (t) => {
-  let data = {
+test("integration - verify", () => {
+  const data = {
     "seed": "SAAFYOZ5U4UBAJMHPITLSKDWAFBJNWH53K7LPZDQKOC5TXAGBIP4DY4WCA",
     "public_key": "AAASUT7FDZDS6UCTBE7JQS2G6KUZBJC5YW7VFVK45JLUK3UDVA6NXJWD",
     "private_key":
@@ -127,19 +138,19 @@ test("integration - verify", (t) => {
 
   const te = new TextEncoder();
   const pk = fromPublic(data.public_key);
-  let nonce = te.encode(data.nonce);
-  let sig = decode(data.sig);
-  t.true(pk.verify(nonce, sig));
+  const nonce = te.encode(data.nonce);
+  const sig = decode(data.sig);
+  assert.strictEqual(pk.verify(nonce, sig), true);
 
   const seed = fromSeed(te.encode(data.seed));
-  t.true(seed.verify(nonce, sig));
+  assert.strictEqual(seed.verify(nonce, sig), true);
   const sig2 = seed.sign(nonce);
   const encsig = encode(sig2);
-  t.is(encsig, data.sig);
+  assert.strictEqual(encsig, data.sig);
 });
 
-test("integration - encoded seed returns stable values albertor", (t) => {
-  let data = {
+test("integration - encoded seed returns stable values albertor", () => {
+  const data = {
     "seed": "SUAGC3DCMVZHI33SMFWGEZLSORXXEYLMMJSXE5DPOJQWYYTFOJ2G64VAPY",
     "public_key": "UAHJLSMYZDJCBHQ2SARL37IEALR3TI7VVPZ2MJ7F4SZKNOG7HJJIYW5T",
     "private_key":
@@ -154,15 +165,19 @@ test("integration - encoded seed returns stable values albertor", (t) => {
     Prefix.User,
     new TextEncoder().encode("albertoralbertoralbertoralbertor"),
   );
-  t.is(td.decode(v), data.seed);
+  assert.strictEqual(td.decode(v), data.seed);
 
   const kp = fromSeed(v);
-  t.is(td.decode(kp.getSeed()), data.seed, "seed");
-  t.is(kp.getPublicKey(), data.public_key, "public key");
-  t.is(td.decode(kp.getPrivateKey()), data.private_key, "private key");
+  assert.strictEqual(td.decode(kp.getSeed()), data.seed, "seed");
+  assert.strictEqual(kp.getPublicKey(), data.public_key, "public key");
+  assert.strictEqual(
+    td.decode(kp.getPrivateKey()),
+    data.private_key,
+    "private key",
+  );
 });
 
-test("integration - curve encrypt", (t) => {
+test("integration - curve encrypt", () => {
   // this is actual data generated by the nkeys go library
   const expected = [
     120,
@@ -235,10 +250,10 @@ test("integration - curve encrypt", (t) => {
   const data = new TextEncoder().encode("hello world");
 
   const enc = kp.seal(data, pub2, nonce);
-  t.deepEqual(enc, new Uint8Array(expected));
+  assert.deepEqual(enc, new Uint8Array(expected));
 });
 
-test("integration - curve decrypt", (t) => {
+test("integration - curve decrypt", () => {
   // this is actual data generated by the nkeys go library
   const message = [
     120,
@@ -306,5 +321,5 @@ test("integration - curve decrypt", (t) => {
   const senderPK = kp2.getPublicKey();
 
   const enc = kp.open(new Uint8Array(message), senderPK) ?? new Uint8Array();
-  t.is(new TextDecoder().decode(enc), "hello world");
+  assert.strictEqual(new TextDecoder().decode(enc), "hello world");
 });

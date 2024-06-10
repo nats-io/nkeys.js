@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
+    "target": "esnext",
+    "module": "nodenext",
     "outDir": "lib",
-    "moduleResolution": "node",
-    "declaration": true
+    "moduleResolution": "nodenext",
+    "sourceMap": true,
+    "declaration": true,
+    "allowJs": true,
+    "removeComments": false
   },
   "include": [
     "build"
