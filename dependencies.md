@@ -2,13 +2,11 @@
 
 This file lists the dependencies used in this repository.
 
-| Dependency                                   | License     |
-| -------------------------------------------- | ----------- |
-| @types/node - 14.0.26                        | MIT         |
-| tweetnacl@1.0.3                              | Unilicense  |
-| https://deno.land/std@0.75.0                 | MIT License |
-| https://github.com/dr-useless/tweetnacl-deno | Unilicense  |
-| Dev Dependencies Fanout (267)                |             |
-| ava@3.12.1                                   | MIT         |
-| typedoc@0.19.1                               | Apache-2.0  |
-| typescript@4.0.2                             | Apache-2.0  |
+| Dependency                           | License     |
+| ------------------------------------ | ----------- |
+| tweetnacl                            | Unilicense  |
+| CI and build dependencies            |             |
+| https://github.com/denoland/deno_std | MIT License |
+| typedoc                              | Apache-2.0  |
+| typescript                           | Apache-2.0  |
+| @types/node                          | MIT         |

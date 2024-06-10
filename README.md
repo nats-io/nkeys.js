@@ -12,29 +12,34 @@ The nkeys.js library works in Deno, Node.js, and the browser!
 
 ## Installation
 
-For your Deno projects:
+The nkeys library is available on both
+[npm](https://www.npmjs.com/package/nkeys.js) and
+[jsr.io](https://jsr.io/@nats-io/nkeys)
 
-```javascript
-import {
-  createUser,
-  fromPublic,
-  fromSeed,
-} from "https://deno.land/x/nkeys.js/modules/esm/mod.ts";
+In Deno:
+
+```bash
+deno add @nats-io/nkeys
 ```
 
-On node, and browsers you can get a build from npm:
+```javascript
+import { createUser, fromPublic, fromSeed } from "@nats-io/nkeys";
+```
+
+In Node:
 
 ```bash
 npm install nkeys.js
 ```
 
-In your node projects:
-
 ```javascript
 const { createUser, fromSeed, fromPublic } = require("nkeys.js");
+// or
+import { createUser, fromPublic, fromSeed } from "nkeys.js";
 ```
 
-On your browser projects, make available the `node/nkeys.js/nkeys.mjs`, and then
+On your browser projects copy `node_modules/nkeys.js/nkeys.mjs` to your document
+root, and then
 
 ```javascript
 import { createUser, fromPublic, fromSeed } from "https://host/path/nkeys.mjs";
@@ -102,6 +107,11 @@ priv.clear();
 Our support policy for Nodejs versions follows
 [Nodejs release support](https://github.com/nodejs/Release). We will support and
 build nkeys.js on even-numbered Nodejs versions that are current or in LTS.
+
+Note that this library no longer shims `atob`, `btoa`, `TextEncoder`, nor
+`TextDecoder`. These should be available in fairly old node builds going as far
+back as Node 16. If you need to run on an older environment, use one of the
+older versions on npm.
 
 ## License
 
