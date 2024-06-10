@@ -12,7 +12,7 @@
     "generate": "deno run -A ./bin/tweetnacl-esm.ts",
     "stage": "npm run init && npm run cjs && npm run generate && tsc",
     "prepare": "npm run stage && npm run generate && deno bundle modules/esm/mod.ts nkeys.mjs",
-    "test": "npm run prepare && node --test && deno test -A test/",
+    "test": "npm run clean && npm run prepare && node --test && deno test -A test/",
     "cover": "npm run clean && npm run prepare && deno test --coverage=coverage -A test/ && deno coverage ./coverage --lcov > ./coverage/out.lcov && genhtml -o ./coverage/html ./coverage/out.lcov && open ./coverage/html/index.html",
     "doc": "npm run clean && rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll",
     "bump-qualifier": "npm version prerelease --no-commit-hooks --no-git-tag-version",
