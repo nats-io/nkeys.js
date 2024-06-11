@@ -30,3 +30,5 @@ export {
 } from "./nkeys.ts";
 
 export { decode, encode } from "./util.ts";
+
+export { version } from "./version.ts";
