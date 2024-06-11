@@ -9,7 +9,7 @@
     "clean": "rm -Rf build/ lib/ nkeys.d.ts nkeys.mjs ./coverage",
     "fmt": "deno fmt src/ examples/ modules/ test/ node_test/",
     "cjs": "deno run --allow-all bin/cjs-fix-imports.ts -o build/ src/ modules/cjs/ node_test/",
-    "generate": "deno run -A ./bin/version.ts && deno run -A ./bin/tweetnacl-esm.ts",
+    "generate": "deno run -A bin/generate_version.ts && deno run -A ./bin/tweetnacl-esm.ts",
     "stage": "npm run init && npm run generate && npm run cjs && tsc",
     "prepare": "npm run clean && npm run stage && npm run generate && deno bundle modules/esm/mod.ts nkeys.mjs",
     "test": "npm run clean && npm run prepare && node --test && deno test -A test/",
