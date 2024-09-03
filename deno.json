@@ -1,8 +1,11 @@
 {
   "name": "@nats-io/nkeys",
-  "version": "1.2.0-4",
+  "version": "1.2.0-6",
   "exports": {
     ".": "./modules/esm/mod.ts"
+  },
+  "test": {
+    "include": ["./test"]
   },
   "publish": {
     "include": [

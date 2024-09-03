@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        deno-version: [1.44.0]
+        deno-version: [1.46.2]
         node-version: [22.x]
 
     steps:
