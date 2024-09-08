@@ -16,7 +16,7 @@
 import { KeyPair, NKeysError, NKeysErrorCode } from "./nkeys.ts";
 import { getEd25519Helper } from "./helper.ts";
 import { Codec } from "./codec.ts";
-import { Prefix } from "./mod.ts";
+import { Prefix } from "./nkeys.ts";
 import { base32 } from "./base32.ts";
 import { crc16 } from "./crc16.ts";
 
