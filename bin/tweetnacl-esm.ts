@@ -22,6 +22,7 @@ async function copyFromModulesDir(
   );
 
   src = src.replaceAll("self", "globalThis");
+  src = src.replaceAll("require('crypto')", "require('node:crypto')");
 
   await Deno.writeTextFile(
     `${Deno.cwd()}/modules/esm/${from}`,
