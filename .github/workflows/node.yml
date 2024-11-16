@@ -3,9 +3,9 @@ name: nkeys.js
 on:
   push:
     tags:
-      - '*'
+      - "*"
     branches:
-      - '*'
+      - "*"
   pull_request:
     branches: [master]
 

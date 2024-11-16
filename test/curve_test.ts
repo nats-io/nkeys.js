@@ -18,7 +18,7 @@ import {
   fromCurveSeed,
   fromSeed,
   NKeysErrorCode,
-} from "../modules/esm/mod.ts";
+} from "../src/mod.ts";
 import {
   assert,
   assertEquals,

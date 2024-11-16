@@ -25,7 +25,7 @@ const {
   decode,
   encode,
   NKeysErrorCode,
-} = require("../lib/index");
+} = require("../lib/mod");
 const {
   createCluster,
   createServer,

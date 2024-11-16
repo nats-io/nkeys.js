@@ -15,7 +15,7 @@
 
 import { Codec } from "./codec.ts";
 import { KeyPair, NKeysError, NKeysErrorCode, Prefix } from "./nkeys.ts";
-import { getEd25519Helper } from "./helper.ts";
+import nacl from "tweetnacl";
 
 /**
  * @ignore
@@ -46,7 +46,7 @@ export class KP implements KeyPair {
       throw new NKeysError(NKeysErrorCode.ClearedPair);
     }
     const sd = Codec.decodeSeed(this.seed);
-    const kp = getEd25519Helper().fromSeed(this.getRawSeed());
+    const kp = nacl.sign.keyPair.fromSeed(this.getRawSeed());
     const buf = Codec.encode(sd.prefix, kp.publicKey);
     return new TextDecoder().decode(buf);
   }
@@ -55,7 +55,7 @@ export class KP implements KeyPair {
     if (!this.seed) {
       throw new NKeysError(NKeysErrorCode.ClearedPair);
     }
-    const kp = getEd25519Helper().fromSeed(this.getRawSeed());
+    const kp = nacl.sign.keyPair.fromSeed(this.getRawSeed());
     return Codec.encode(Prefix.Private, kp.secretKey);
   }
 
@@ -63,16 +63,16 @@ export class KP implements KeyPair {
     if (!this.seed) {
       throw new NKeysError(NKeysErrorCode.ClearedPair);
     }
-    const kp = getEd25519Helper().fromSeed(this.getRawSeed());
-    return getEd25519Helper().sign(input, kp.secretKey);
+    const kp = nacl.sign.keyPair.fromSeed(this.getRawSeed());
+    return nacl.sign.detached(input, kp.secretKey);
   }
 
   verify(input: Uint8Array, sig: Uint8Array): boolean {
     if (!this.seed) {
       throw new NKeysError(NKeysErrorCode.ClearedPair);
     }
-    const kp = getEd25519Helper().fromSeed(this.getRawSeed());
-    return getEd25519Helper().verify(input, sig, kp.publicKey);
+    const kp = nacl.sign.keyPair.fromSeed(this.getRawSeed());
+    return nacl.sign.detached.verify(input, sig, kp.publicKey);
   }
 
   clear(): void {
