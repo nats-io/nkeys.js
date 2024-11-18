@@ -1,4 +1,4 @@
-name: nkeys-deno.js
+name: deno.js
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches:
       - "*"
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   test:
@@ -36,7 +36,9 @@ jobs:
         env:
           TMPDIR: ${{ runner.temp }}
           CI: true
-        run: deno test -A --unstable --failfast test/
+        run: |
+          deno install
+          deno test -A --unstable --failfast test/
 
       - name: Release
         uses: softprops/action-gh-release@v1

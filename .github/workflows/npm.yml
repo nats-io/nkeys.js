@@ -1,4 +1,4 @@
-name: NATS.js NPM release
+name: npm/jsr release
 
 on:
   release:
