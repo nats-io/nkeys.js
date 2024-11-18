@@ -20,7 +20,7 @@ export function assertThrowsErrorCode(fn: () => unknown, ...codes: string[]) {
     fn();
     fail("failed to throw error");
   } catch (err) {
-    assertErrorCode(err, ...codes);
+    assertErrorCode(err as Error, ...codes);
   }
 }
 

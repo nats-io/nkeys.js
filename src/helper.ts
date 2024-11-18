@@ -44,16 +44,3 @@ export interface Ed25519Helper {
 /**
  * @ignore
  */
-let helper: Ed25519Helper;
-/**
- * @ignore
- */
-export function setEd25519Helper(lib: Ed25519Helper) {
-  helper = lib;
-}
-/**
- * @ignore
- */
-export function getEd25519Helper() {
-  return helper;
-}

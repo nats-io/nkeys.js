@@ -14,8 +14,8 @@
  */
 
 import { Codec } from "./codec.ts";
-import { KeyPair, NKeysError, NKeysErrorCode } from "./nkeys.ts";
-import { getEd25519Helper } from "./helper.ts";
+import { type KeyPair, NKeysError, NKeysErrorCode } from "./nkeys.ts";
+import nacl from "tweetnacl";
 
 /**
  * @ignore
@@ -60,7 +60,7 @@ export class PublicKey implements KeyPair {
       throw new NKeysError(NKeysErrorCode.ClearedPair);
     }
     const buf = Codec._decode(this.publicKey);
-    return getEd25519Helper().verify(input, sig, buf.slice(1));
+    return nacl.sign.detached.verify(input, sig, buf.slice(1));
   }
 
   clear(): void {
