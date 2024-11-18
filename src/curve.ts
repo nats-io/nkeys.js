@@ -14,7 +14,7 @@
  */
 
 import { type KeyPair, NKeysError, NKeysErrorCode } from "./nkeys.ts";
-import nacl from "tweetnacl";
+import nacl from "./nacl.ts";
 import { Codec } from "./codec.ts";
 import { Prefix } from "./nkeys.ts";
 import { base32 } from "./base32.ts";

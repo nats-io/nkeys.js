@@ -15,7 +15,7 @@
 
 import { Codec } from "./codec.ts";
 import { type KeyPair, NKeysError, NKeysErrorCode, Prefix } from "./nkeys.ts";
-import nacl from "tweetnacl";
+import nacl from "./nacl.ts";
 
 /**
  * @ignore
