@@ -16,7 +16,7 @@ import { KP } from "./kp.ts";
 import { PublicKey } from "./public.ts";
 import { Codec } from "./codec.ts";
 import { curveKeyLen, CurveKP } from "./curve.ts";
-import nacl from "tweetnacl";
+import nacl from "./nacl.ts";
 
 /**
  * @ignore

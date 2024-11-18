@@ -10,8 +10,10 @@ A public-key signature system based on Ed25519 for the
 [![npm @nats-io/nkeys](https://img.shields.io/npm/v/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
 [![npm](https://img.shields.io/npm/dm/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
 
-With the 2.0.0 release, the libraries changed npm `nkeys.js` to
-`@nats-io/nkeys`.
+> [!IMPORTANT]
+>
+> With the 2.0.0 release, the library changed module name from `nkeys.js` to
+> `@nats-io/nkeys`.
 
 The nkeys.js library works in Deno, Node.js, Bun, and the browser!
 
@@ -22,7 +24,7 @@ The nkeys library is available on both
 [jsr.io](https://jsr.io/@nats-io/nkeys)
 
 ```bash
-deno add @nats-io/nkeys
+deno add jsr:@nats-io/nkeys
 ```
 
 ```javascript
@@ -32,7 +34,7 @@ import { createUser, fromPublic, fromSeed } from "@nats-io/nkeys";
 In Node:
 
 ```bash
-npm install nkeys.js
+npm install @nats-io/nkeys
 ```
 
 ```javascript
@@ -41,8 +43,8 @@ const { createUser, fromSeed, fromPublic } = require("nkeys.js");
 import { createUser, fromPublic, fromSeed } from "nkeys.js";
 ```
 
-On your browser projects copy `node_modules/nkeys.js/nkeys.mjs` to your document
-root, and then
+On your browser use the jsr or npn registry that is compatible with your build
+workflow
 
 ```javascript
 import { createUser, fromPublic, fromSeed } from "https://host/path/nkeys.mjs";
