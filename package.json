@@ -7,6 +7,7 @@
   "scripts": {
     "init": "mkdir -p build",
     "clean": "rm -Rf build/ lib/ nkeys.d.ts nkeys.mjs ./coverage",
+    "real-clean": "npm run clean && rm -Rf node_modules",
     "fmt": "deno fmt src/ examples/ modules/ test/ node_test/",
     "cjs": "deno run --allow-all bin/cjs-fix-imports.ts -o build/ src/ node_test/",
     "generate": "deno run -A bin/generate_version.ts",

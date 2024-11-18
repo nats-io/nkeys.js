@@ -8,15 +8,13 @@ A public-key signature system based on Ed25519 for the
 [![npm](https://img.shields.io/npm/v/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
 [![npm](https://img.shields.io/npm/dt/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
 
-The nkeys.js library works in Deno, Node.js, and the browser!
+The nkeys.js library works in Deno 2.x, Node.js, Bun, and the browser!
 
 ## Installation
 
 The nkeys library is available on both
 [npm](https://www.npmjs.com/package/nkeys.js) and
 [jsr.io](https://jsr.io/@nats-io/nkeys)
-
-In Deno:
 
 ```bash
 deno add @nats-io/nkeys

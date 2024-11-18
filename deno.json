@@ -18,6 +18,12 @@
       "jsr.json"
     ]
   },
+  "lint": {
+    "exclude": ["lib/", "build/", "docs/"]
+  },
+  "fmt": {
+    "exclude": ["lib/", "build/", "docs/"]
+  },
   "imports": {
     "tweetnacl": "npm:tweetnacl@1.0.3"
   }

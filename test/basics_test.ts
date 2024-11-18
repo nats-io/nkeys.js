@@ -24,7 +24,7 @@ import {
   createUser,
   fromPublic,
   fromSeed,
-  KeyPair,
+  type KeyPair,
   NKeysErrorCode,
 } from "../src/mod.ts";
 import { createCluster, createServer, Prefix, Prefixes } from "../src/nkeys.ts";

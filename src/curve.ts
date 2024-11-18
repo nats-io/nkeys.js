@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { KeyPair, NKeysError, NKeysErrorCode } from "./nkeys.ts";
+import { type KeyPair, NKeysError, NKeysErrorCode } from "./nkeys.ts";
 import nacl from "tweetnacl";
 import { Codec } from "./codec.ts";
 import { Prefix } from "./mod.ts";
