@@ -15,15 +15,15 @@
 import { KP } from "./kp.ts";
 import { PublicKey } from "./public.ts";
 import { Codec } from "./codec.ts";
-import { getEd25519Helper } from "./helper.ts";
 import { curveKeyLen, CurveKP } from "./curve.ts";
+import nacl from "./nacl.ts";
 
 /**
  * @ignore
  */
 export function createPair(prefix: Prefix): KeyPair {
   const len = prefix === Prefix.Curve ? curveKeyLen : 32;
-  const rawSeed = getEd25519Helper().randomBytes(len);
+  const rawSeed = nacl.randomBytes(len);
   const str = Codec.encodeSeed(prefix, new Uint8Array(rawSeed));
   return prefix === Prefix.Curve
     ? new CurveKP(new Uint8Array(rawSeed))
@@ -271,21 +271,10 @@ export enum NKeysErrorCode {
 }
 
 export class NKeysError extends Error {
-  name: string;
   code: string;
-  chainedError?: Error;
 
-  /**
-   * @param {NKeysErrorCode} code
-   * @param {Error} [chainedError]
-   * @constructor
-   *
-   * @api private
-   */
-  constructor(code: NKeysErrorCode, chainedError?: Error) {
-    super(code);
-    this.name = "NKeysError";
+  constructor(code: NKeysErrorCode, options?: ErrorOptions) {
+    super(code, options);
     this.code = code;
-    this.chainedError = chainedError;
   }
 }

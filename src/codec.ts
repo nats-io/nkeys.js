@@ -114,7 +114,7 @@ export class Codec {
     try {
       raw = base32.decode(src);
     } catch (ex) {
-      throw new NKeysError(NKeysErrorCode.InvalidEncoding, ex);
+      throw new NKeysError(NKeysErrorCode.InvalidEncoding, { cause: ex });
     }
 
     const checkOffset = raw.byteLength - 2;

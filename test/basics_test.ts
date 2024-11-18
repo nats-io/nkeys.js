@@ -24,9 +24,9 @@ import {
   createUser,
   fromPublic,
   fromSeed,
-  KeyPair,
+  type KeyPair,
   NKeysErrorCode,
-} from "../modules/esm/mod.ts";
+} from "../src/mod.ts";
 import { createCluster, createServer, Prefix, Prefixes } from "../src/nkeys.ts";
 import { KP } from "../src/kp.ts";
 import { Codec } from "../src/codec.ts";

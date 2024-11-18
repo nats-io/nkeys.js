@@ -4,11 +4,18 @@ A public-key signature system based on Ed25519 for the
 [NATS ecosystem system](https://nats.io) for JavaScript.
 
 [![license](https://img.shields.io/github/license/nats-io/ts-nats.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-[![nkeys.js](https://github.com/aricart/nkeys.js/workflows/nkeys.js/badge.svg)](https://github.com/aricart/nkeys.js/actions)
+[![nkeys.js](https://github.com/nats-io/nkeys.js/workflows/nkeys.js/badge.svg)](https://github.com/nats-io/nkeys.js/actions)
 [![npm](https://img.shields.io/npm/v/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
-[![npm](https://img.shields.io/npm/dt/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
+[![npm](https://img.shields.io/npm/dm/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
+[![npm @nats-io/nkeys](https://img.shields.io/npm/v/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
+[![npm](https://img.shields.io/npm/dm/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
 
-The nkeys.js library works in Deno, Node.js, and the browser!
+> [!IMPORTANT]
+>
+> With the 2.0.0 release, the library changed module name from `nkeys.js` to
+> `@nats-io/nkeys`.
+
+The nkeys.js library works in Deno, Node.js, Bun, and the browser!
 
 ## Installation
 
@@ -16,10 +23,8 @@ The nkeys library is available on both
 [npm](https://www.npmjs.com/package/nkeys.js) and
 [jsr.io](https://jsr.io/@nats-io/nkeys)
 
-In Deno:
-
 ```bash
-deno add @nats-io/nkeys
+deno add jsr:@nats-io/nkeys
 ```
 
 ```javascript
@@ -29,7 +34,7 @@ import { createUser, fromPublic, fromSeed } from "@nats-io/nkeys";
 In Node:
 
 ```bash
-npm install nkeys.js
+npm install @nats-io/nkeys
 ```
 
 ```javascript
@@ -38,8 +43,8 @@ const { createUser, fromSeed, fromPublic } = require("nkeys.js");
 import { createUser, fromPublic, fromSeed } from "nkeys.js";
 ```
 
-On your browser projects copy `node_modules/nkeys.js/nkeys.mjs` to your document
-root, and then
+On your browser use the jsr or npn registry that is compatible with your build
+workflow
 
 ```javascript
 import { createUser, fromPublic, fromSeed } from "https://host/path/nkeys.mjs";

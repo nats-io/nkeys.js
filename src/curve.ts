@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-import { KeyPair, NKeysError, NKeysErrorCode } from "./nkeys.ts";
-import { getEd25519Helper } from "./helper.ts";
+import { type KeyPair, NKeysError, NKeysErrorCode } from "./nkeys.ts";
+import nacl from "./nacl.ts";
 import { Codec } from "./codec.ts";
-import { Prefix } from "./mod.ts";
+import { Prefix } from "./nkeys.ts";
 import { base32 } from "./base32.ts";
 import { crc16 } from "./crc16.ts";
 
@@ -52,7 +52,7 @@ export class CurveKP implements KeyPair {
     if (!this.seed) {
       throw new NKeysError(NKeysErrorCode.ClearedPair);
     }
-    const pub = getEd25519Helper().scalarBaseMultiply(this.seed);
+    const pub = nacl.scalarMult.base(this.seed);
     const buf = Codec.encode(Prefix.Curve, pub);
     return new TextDecoder().decode(buf);
   }
@@ -92,7 +92,7 @@ export class CurveKP implements KeyPair {
       // remove the prefix byte
       return payload.slice(1);
     } catch (ex) {
-      throw new NKeysError(NKeysErrorCode.InvalidRecipient, ex);
+      throw new NKeysError(NKeysErrorCode.InvalidRecipient, { cause: ex });
     }
   }
 
@@ -101,7 +101,7 @@ export class CurveKP implements KeyPair {
       throw new NKeysError(NKeysErrorCode.ClearedPair);
     }
     if (!nonce) {
-      nonce = getEd25519Helper().randomBytes(curveNonceLen);
+      nonce = nacl.randomBytes(curveNonceLen);
     }
     const pub = this.decodePubCurveKey(recipient);
 
@@ -111,7 +111,7 @@ export class CurveKP implements KeyPair {
     out.set(nonce, XKeyVersionV1.length);
 
     // this is only the encoded payload
-    const encrypted = getEd25519Helper().seal(message, nonce, pub, this.seed);
+    const encrypted = nacl.box(message, nonce, pub, this.seed);
     // the full message is the header+nonce+encrypted
     const fullMessage = new Uint8Array(out.length + encrypted.length);
     fullMessage.set(out);
@@ -141,6 +141,6 @@ export class CurveKP implements KeyPair {
     // stripe the nonce
     message = message.slice(curveNonceLen);
 
-    return getEd25519Helper().open(message, nonce, pub, this.seed);
+    return nacl.box.open(message, nonce, pub, this.seed);
   }
 }

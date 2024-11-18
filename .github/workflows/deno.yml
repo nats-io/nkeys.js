@@ -1,13 +1,13 @@
-name: nkeys-deno.js
+name: deno.js
 
 on:
   push:
     tags:
-      - '*'
+      - "*"
     branches:
-      - '*'
+      - "*"
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   test:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        deno-version: [1.46.2]
+        deno-version: [2.0.x]
 
     steps:
       - name: checkout project
@@ -36,10 +36,9 @@ jobs:
         env:
           TMPDIR: ${{ runner.temp }}
           CI: true
-        run: deno test -A --unstable --failfast test/
-
-      - name: build nkeys.mjs
-        run: deno bundle modules/esm/mod.ts nkeys.mjs
+        run: |
+          deno install
+          deno test -A --unstable --failfast test/
 
       - name: Release
         uses: softprops/action-gh-release@v1

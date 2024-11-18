@@ -17,7 +17,7 @@ import {
   assertEquals,
 } from "https://deno.land/std@0.75.0/testing/asserts.ts";
 
-import { decode, encode, fromPublic, fromSeed } from "../modules/esm/mod.ts";
+import { decode, encode, fromPublic, fromSeed } from "../src/mod.ts";
 
 import { Codec } from "../src/codec.ts";
 import { Prefix } from "../src/nkeys.ts";

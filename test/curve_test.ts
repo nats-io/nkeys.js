@@ -18,13 +18,13 @@ import {
   fromCurveSeed,
   fromSeed,
   NKeysErrorCode,
-} from "../modules/esm/mod.ts";
+} from "../src/mod.ts";
 import {
   assert,
   assertEquals,
 } from "https://deno.land/std@0.200.0/assert/mod.ts";
 import { assertThrowsErrorCode } from "./util.ts";
-import { CurveKP } from "../src/curve.ts";
+import type { CurveKP } from "../src/curve.ts";
 import { createAccount } from "../src/nkeys.ts";
 import { base32 } from "../src/base32.ts";
 

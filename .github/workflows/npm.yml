@@ -1,4 +1,4 @@
-name: NATS.js NPM release
+name: npm/jsr release
 
 on:
   release:
@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         node-version: [22.x]
-        deno-version: [1.46.2]
+        deno-version: [2.0.x]
 
     runs-on: ubuntu-latest
     permissions:
@@ -42,5 +42,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npx jsr publish --allow-dirty
-
-
