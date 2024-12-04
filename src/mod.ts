@@ -27,6 +27,7 @@ export {
   NKeysError,
   NKeysErrorCode,
   Prefix,
+  Prefixes,
 } from "./nkeys.ts";
 
 export { decode, encode } from "./util.ts";

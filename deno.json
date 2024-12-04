@@ -1,6 +1,6 @@
 {
   "name": "@nats-io/nkeys",
-  "version": "2.0.0-2",
+  "version": "2.0.0-4",
   "exports": {
     ".": "./src/mod.ts"
   },
@@ -26,5 +26,6 @@
   },
   "imports": {
     "tweetnacl": "npm:tweetnacl@1.0.3"
-  }
+  },
+  "nodeModulesDir": "auto"
 }
