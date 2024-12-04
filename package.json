@@ -1,6 +1,6 @@
 {
   "name": "@nats-io/nkeys",
-  "version": "2.0.0-2",
+  "version": "2.0.0-4",
   "description": "A public-key signature system based on Ed25519 for the NATS ecosystem in javascript",
   "main": "lib/mod.js",
   "types": "lib/mod.d.ts",
@@ -38,8 +38,8 @@
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
-    "@types/node": "^22.9.0",
-    "typedoc": "^0.26.11",
-    "typescript": "^5.6.3"
+    "@types/node": "^22.10.1",
+    "typedoc": "^0.27.3",
+    "typescript": "^5.7.2"
   }
 }
