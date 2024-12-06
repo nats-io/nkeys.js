@@ -7,7 +7,6 @@ A public-key signature system based on Ed25519 for the
 ![node](https://github.com/nats-io/nkeys.js/actions/workflows/node.yml/badge.svg)
 ![deno](https://github.com/nats-io/nkeys.js/actions/workflows/deno.yml/badge.svg)
 [![coverage](https://coveralls.io/repos/github/nats-io/nkeys.js/badge.svg?branch=main)](https://coveralls.io/github/nats-io/nkeys.js?branch=main)
-
 [![JSDoc](https://img.shields.io/badge/JSDoc-reference-blue)](https://nats-io.github.io/nkeys.js/index.html)
 
 [![JSR](https://jsr.io/badges/@nats-io/nkeys)](https://jsr.io/@nats-io/nkeys)
@@ -53,13 +52,6 @@ npm install @nats-io/nkeys
 const { createUser, fromSeed, fromPublic } = require("nkeys.js");
 // or
 import { createUser, fromPublic, fromSeed } from "nkeys.js";
-```
-
-On your browser use the jsr or npn registry that is compatible with your build
-workflow
-
-```javascript
-import { createUser, fromPublic, fromSeed } from "https://host/path/nkeys.mjs";
 ```
 
 ## Basic Usage
