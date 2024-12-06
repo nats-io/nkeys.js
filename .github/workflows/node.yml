@@ -1,4 +1,4 @@
-name: node
+name: test cjs
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        deno-version: [2.0.x]
+        deno-version: [2.1.x]
         node-version: [22.x]
 
     steps:

@@ -1,4 +1,4 @@
-name: deno.js
+name: test esm
 
 on:
   push:
@@ -16,7 +16,10 @@ jobs:
 
     strategy:
       matrix:
-        deno-version: [2.0.x]
+        deno-version: [2.1.x]
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: checkout project
@@ -38,16 +41,12 @@ jobs:
           CI: true
         run: |
           deno install
-          deno test -A --unstable --failfast test/
+          deno task clean
+          deno task test
+          deno task cover
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: |
-          startsWith(github.ref, 'refs/tags/') &&
-          !startsWith(github.ref, 'refs/tags/std/')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload coverage
+        uses: coverallsapp/github-action@v2
         with:
-          files: |
-            nkeys.mjs
-          draft: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./coverage/out.lcov

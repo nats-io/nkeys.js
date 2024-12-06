@@ -6,3 +6,4 @@ lib/
 .settings/
 nkeys.mjs
 coverage/
+deno.lock

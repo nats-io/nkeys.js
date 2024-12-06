@@ -1,6 +1,7 @@
 {
   "name": "@nats-io/nkeys",
-  "version": "2.0.0-4",
+  "version": "2.0.0-5",
+  "types": "lib/mod.d.ts",
   "exports": {
     ".": "./src/mod.ts"
   },
@@ -9,14 +10,19 @@
   },
   "publish": {
     "include": [
-      "LICENSE",
-      "CODE-OF-CONDUCT.md",
-      "MANTAINERS.md",
-      "README.md",
-      "./modules/esm/*",
       "./src/**/*",
-      "jsr.json"
+      "LICENSE",
+      "README.md",
+      "MANTAINERS.md",
+      "CODE-OF-CONDUCT.md"
     ]
+  },
+  "tasks": {
+    "clean": "rm -rf ./build ./lib ./coverage",
+    "test-cover": "deno task clean && deno task test && deno task cover && deno task view-cover",
+    "test": "deno test -A --parallel --reload --coverage=coverage test/",
+    "cover": "deno coverage ./coverage --lcov > ./coverage/out.lcov",
+    "view-cover": "genhtml -o ./coverage/html ./coverage/out.lcov && open ./coverage/html/index.html"
   },
   "lint": {
     "exclude": ["lib/", "build/", "docs/"]

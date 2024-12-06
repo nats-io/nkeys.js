@@ -3,12 +3,24 @@
 A public-key signature system based on Ed25519 for the
 [NATS ecosystem system](https://nats.io) for JavaScript.
 
-[![license](https://img.shields.io/github/license/nats-io/ts-nats.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-[![nkeys.js](https://github.com/nats-io/nkeys.js/workflows/nkeys.js/badge.svg)](https://github.com/nats-io/nkeys.js/actions)
-[![npm](https://img.shields.io/npm/v/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
-[![npm](https://img.shields.io/npm/dm/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
-[![npm @nats-io/nkeys](https://img.shields.io/npm/v/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
+[![License](https://img.shields.io/badge/Licence-Apache%202.0-blue.svg)](./LICENSE)
+![node](https://github.com/nats-io/nkeys.js/actions/workflows/node.yml/badge.svg)
+![deno](https://github.com/nats-io/nkeys.js/actions/workflows/deno.yml/badge.svg)
+[![coverage](https://coveralls.io/repos/github/nats-io/nkeys.js/badge.svg?branch=main)](https://coveralls.io/github/nats-io/nkeys.js?branch=main)
+
+[![JSDoc](https://img.shields.io/badge/JSDoc-reference-blue)](https://nats-io.github.io/nkeys.js/index.html)
+
+[![JSR](https://jsr.io/badges/@nats-io/nkeys)](https://jsr.io/@nats-io/nkeys)
+[![JSR](https://jsr.io/badges/@nats-io/nkeys/score)](https://jsr.io/@nats-io/nkeys)
+
+![v2](https://img.shields.io/badge/version-2-blue)
+[![npm](https://img.shields.io/npm/v/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
+[![npm](https://img.shields.io/npm/dt/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
 [![npm](https://img.shields.io/npm/dm/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
+
+[![npm](https://img.shields.io/npm/v/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
+[![npm](https://img.shields.io/npm/dt/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
+[![npm](https://img.shields.io/npm/dm/nkeys.js.svg)](https://www.npmjs.com/package/nkeys.js)
 
 > [!IMPORTANT]
 >
