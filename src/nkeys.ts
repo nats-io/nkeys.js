@@ -211,7 +211,7 @@ export class Prefixes {
       prefix == Prefix.Curve;
   }
 
-  static startsWithValidPrefix(s: string) {
+  static startsWithValidPrefix(s: string): boolean {
     const c = s[0];
     return c == "S" || c == "P" || c == "O" || c == "N" || c == "C" ||
       c == "A" || c == "U" || c == "X";

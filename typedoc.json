@@ -1,5 +1,5 @@
 {
-  "readme": "none",
+  "readme": "./README.md",
   "theme": "default",
   "out": "docs/",
   "entryPoints": ["build/mod.ts"]
