@@ -12,7 +12,6 @@ A public-key signature system based on Ed25519 for the
 [![JSR](https://jsr.io/badges/@nats-io/nkeys)](https://jsr.io/@nats-io/nkeys)
 [![JSR](https://jsr.io/badges/@nats-io/nkeys/score)](https://jsr.io/@nats-io/nkeys)
 
-![v2](https://img.shields.io/badge/version-2-blue)
 [![npm](https://img.shields.io/npm/v/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
 [![npm](https://img.shields.io/npm/dt/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
 [![npm](https://img.shields.io/npm/dm/%40nats-io%2Fnkeys)](https://www.npmjs.com/package/@nats-io/nkeys)
