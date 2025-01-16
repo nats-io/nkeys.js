@@ -69,7 +69,10 @@ export function createServer(): KeyPair {
 }
 
 /**
- * @ignore
+ * Generates and returns a KeyPair object using the Curve prefix.
+ * Curve KeyPairs can seal/open (encrypt/decrypt) payloads.
+ *
+ * @return {KeyPair} The generated KeyPair object with Curve prefix.
  */
 export function createCurve(): KeyPair {
   return createPair(Prefix.Curve);
@@ -91,6 +94,13 @@ export function fromPublic(src: string): KeyPair {
   throw new NKeysError(NKeysErrorCode.InvalidPublicKey);
 }
 
+/**
+ * Creates a KeyPair from a Curve seed. Curve keys can encrypt and decrypt payloads.
+ *
+ * @param {Uint8Array} src - The seed representing the Curve key in encoded format.
+ * @return {KeyPair} The resulting KeyPair generated from the Curve seed.
+ * @throws {NKeysError} If the seed's prefix is not a Curve prefix or if the seed length is invalid.
+ */
 export function fromCurveSeed(src: Uint8Array): KeyPair {
   const sd = Codec.decodeSeed(src);
   if (sd.prefix !== Prefix.Curve) {
@@ -141,19 +151,21 @@ export interface KeyPair {
 
   /**
    * Returns the digital signature of signing the input with the
-   * the KeyPair's private key.
+   * the KeyPair's private key. Note that only non-curve keys can sign.
    * @param {Uint8Array} input
    * @returns Uint8Array
-   * @throws NKeysError
+   * @throws NKeysError if a curve key
    */
   sign(input: Uint8Array): Uint8Array;
 
   /**
    * Returns true if the signature can be verified with the KeyPair
+   * Note that only non-curve keys can verify.
+   *
    * @param {Uint8Array} input
    * @param {Uint8Array} sig
    * @returns {boolean}
-   * @throws NKeysError
+   * @throws NKeysError if a curve key
    */
   verify(input: Uint8Array, sig: Uint8Array): boolean;
 
@@ -163,8 +175,27 @@ export interface KeyPair {
    */
   clear(): void;
 
+  /**
+   * Seals (encrypts) the provided input data with the recipient's public key
+   * and an optional nonce. Note that only curve keys can seal a payload.
+   *
+   * @param {Uint8Array} input - The data to be encrypted.
+   * @param {string} recipient - The recipient's identifier or public key.
+   * @param {Uint8Array} [nonce] - An optional nonce to use in the encryption process.
+   * @return {Uint8Array} The encrypted data.
+   * @throws {NKeysError} if not a curve key
+   */
   seal(input: Uint8Array, recipient: string, nonce?: Uint8Array): Uint8Array;
 
+  /**
+   * Opens (decrypts) and processes a given message from a specified sender.
+   * Note that only curve keys can open a payload.
+   *
+   * @param {Uint8Array} message - The message to be opened and processed.
+   * @param {string} sender - The sender of the message.
+   * @return {Uint8Array | null} Returns the processed message as a Uint8Array if successful, or null if the operation fails.
+   * @throws {NKeysError} if not a curve key
+   */
   open(message: Uint8Array, sender: string): Uint8Array | null;
 }
 
