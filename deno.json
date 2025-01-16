@@ -1,6 +1,6 @@
 {
   "name": "@nats-io/nkeys",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "types": "lib/mod.d.ts",
   "exports": {
     ".": "./src/mod.ts"
