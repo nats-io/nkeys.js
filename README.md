@@ -110,6 +110,68 @@ user.clear();
 priv.clear();
 ```
 
+## Curve Keys
+
+Curve keys seal/open (encrypt/decrypt) payloads only, but look like regular
+nkeys. The `getSeed()`, `getPrivate()`, `getPublic()`, `clear()` work have the
+same functionality as the normal nkeys. The APIs to `sign()`, `verify()` however
+will throw an error (regular nkeys will throw an error for `seal()` and
+`open()`)
+
+```javascript
+// let's create 3 different curve keys, as with other nkeys
+// private/seeds should be kept private, and public keys can be
+// shared.
+const a = createCurve();
+const b = createCurve();
+const c = createCurve();
+
+// encryption api works on bytes - so lets make a message
+const payload = new TextEncoder().encode("hello!");
+
+// let's encrypt the message so that "b" can read it
+const encrypted = a.seal(payload, b.getPublicKey());
+
+// "b" can then open the message, we need to know the sender
+let decrypted = b.open(encrypted, a.getPublicKey());
+if (decrypted === null) {
+  throw new Error("failed to decrypt");
+}
+console.log(new TextDecoder().decode(decrypted));
+
+// wrong recipient - will return `null`
+decrypted = c.open(encrypted, a.getPublicKey());
+if (decrypted !== null) {
+  throw new Error("this should have been null");
+}
+
+// wrong sender - will return `null`
+decrypted = b.open(encrypted, c.getPublicKey());
+if (decrypted !== null) {
+  throw new Error("shouldn't have decrypted");
+}
+
+// seal can take an user-specified nonce - the nonce will make
+// it so that 2 equal payloads encrypt to different values
+// when not specified seal uses a random nonce (a good thing).
+// for this example, we'll use the same nonce
+const nonce = new Uint8Array(24);
+
+// same payload, but with the specified nonce, different encrypted results
+// comparing the outputs you wouldn't be able to guess they are the
+// same exact unencrytped payload.
+const encrypted2 = a.seal(payload, b.getPublicKey(), nonce);
+console.log(encrypted, encrypted2);
+
+console.log("---------");
+
+// now re-encrypt with the same nonce, encrypted2 and encrypted3 are equal
+// which would provide a hint that the unencrypted payloads are
+// the same (not a good thing).
+const encrypted3 = a.seal(payload, b.getPublicKey(), nonce);
+console.log(encrypted2, encrypted3);
+```
+
 ## Supported Node Versions
 
 Our support policy for Nodejs versions follows

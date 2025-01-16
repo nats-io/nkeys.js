@@ -34,17 +34,23 @@
 
       // Seeds are encoded into Uint8Array, and start with
       // the letter 'S'. Seeds need to be kept safe and never shared
-      addMessage(`seeds start with 'S': ${seed[0] === "S".charCodeAt(0)}`);
+      addMessage(
+        `seeds start with 'S': ${seed[0] === "S".charCodeAt(0)}`,
+      );
 
       // A seed's second letter encodes it's type:
       // `U` for user,
       // `A` for account,
       // `O` for operators
-      addMessage(`user seed starts with 'SU'? ${seed[1] === "U".charCodeAt(0)}`);
+      addMessage(
+        `user seed starts with 'SU'? ${seed[1] === "U".charCodeAt(0)}`,
+      );
 
       const publicKey = user.getPublicKey();
       addMessage(publicKey);
-      addMessage(`public keys for user start with 'U'? ${publicKey[0] === "U"}`);
+      addMessage(
+        `public keys for user start with 'U'? ${publicKey[0] === "U"}`,
+      );
 
       // you can recreate the keypair with its seed:
       const priv = fromSeed(seed);
@@ -53,7 +59,9 @@
       const data = new TextEncoder().encode("Hello World!");
       // and verify a signature:
       if (!valid) {
-        addMessage("couldn't validate the data/signature against my key");
+        addMessage(
+          "couldn't validate the data/signature against my key",
+        );
       } else {
         addMessage(
           "created some data, created a digital signature, and verified it with my key",

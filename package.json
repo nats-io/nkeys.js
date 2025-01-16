@@ -1,6 +1,6 @@
 {
   "name": "@nats-io/nkeys",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A public-key signature system based on Ed25519 for the NATS ecosystem in javascript",
   "main": "lib/mod.js",
   "types": "lib/mod.d.ts",
@@ -20,9 +20,9 @@
     "generate": "deno run -A bin/generate_version.ts && deno fmt",
     "stage": "npm run init && npm run generate && npm run cjs && tsc",
     "prepare": "npm run clean && npm run stage",
-    "test-node": "node --test",
+    "test-node": "cd node_test; node --test",
     "test-deno": "deno test -A test",
-    "test": "npm run prepare && npm run check-package && npm run test-node && npm run test-deno",
+    "test": "npm run prepare && npm run check-package && npm run test-deno && npm run test-node",
     "doc": "rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll",
     "bump-qualifier": "npm version prerelease --no-commit-hooks --no-git-tag-version",
     "bump-release": "npm version patch --no-commit-hooks --no-git-tag-version",
@@ -46,8 +46,8 @@
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
-    "@types/node": "^22.10.1",
-    "typedoc": "^0.27.3",
-    "typescript": "^5.7.2"
+    "@types/node": "^22.10.7",
+    "typedoc": "^0.27.6",
+    "typescript": "^5.7.3"
   }
 }
