@@ -19,10 +19,7 @@ import {
   fromSeed,
   NKeysErrorCode,
 } from "../src/mod.ts";
-import {
-  assert,
-  assertEquals,
-} from "https://deno.land/std@0.200.0/assert/mod.ts";
+import { assert, assertEquals } from "@std/assert";
 import { assertThrowsErrorCode } from "./util.ts";
 import type { CurveKP } from "../src/curve.ts";
 import { createAccount } from "../src/nkeys.ts";
