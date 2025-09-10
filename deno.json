@@ -31,7 +31,8 @@
     "exclude": ["lib/", "build/", "docs/"]
   },
   "imports": {
+    "@std/assert": "jsr:@std/assert@^1.0.14",
     "tweetnacl": "npm:tweetnacl@1.0.3"
   },
-  "nodeModulesDir": "auto"
+  "nodeModulesDir": true
 }

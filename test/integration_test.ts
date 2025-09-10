@@ -12,10 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  assert,
-  assertEquals,
-} from "https://deno.land/std@0.75.0/testing/asserts.ts";
+import { assert, assertEquals } from "@std/assert";
 
 import { decode, encode, fromPublic, fromSeed } from "../src/mod.ts";
 

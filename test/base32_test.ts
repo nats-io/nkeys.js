@@ -14,7 +14,7 @@
  */
 
 import { base32 } from "../src/base32.ts";
-import { assertEquals } from "https://deno.land/std@0.75.0/testing/asserts.ts";
+import { assertEquals } from "@std/assert";
 
 function assertEqualUint8Arrays(a: Uint8Array, b: Uint8Array) {
   assertEquals(a.length, b.length);
