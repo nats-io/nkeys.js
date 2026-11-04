@@ -8,8 +8,8 @@ jobs:
   test:
     strategy:
       matrix:
-        node-version: [24.x]
-        deno-version: [2.5.x]
+        node-version: [26.x]
+        deno-version: [2.9.x]
 
     runs-on: ubuntu-latest
     permissions:
@@ -18,16 +18,16 @@ jobs:
 
     steps:
       - name: Checkout nkeys.js
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: "https://registry.npmjs.org"
       - name: Use Deno Version ${{ matrix.deno-version }}
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
           deno-version: ${{ matrix.deno-version }}
       - run: npm install -g npm

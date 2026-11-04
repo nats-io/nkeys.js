@@ -59,8 +59,8 @@
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
-    "@types/node": "^22.13.10",
-    "typedoc": "^0.28.12",
-    "typescript": "^5.8.3"
+    "@types/node": "^26.6.6",
+    "typedoc": "^0.28.20",
+    "typescript": "^6.0.3"
   }
 }
