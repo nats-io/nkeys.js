@@ -11,7 +11,7 @@ on:
 
 jobs:
   test:
-    name: ${{ matrix.config.kind }} ${{ matrix.config.os }}
+    name: deno ${{ matrix.deno-version }}
     runs-on: ubuntu-latest
 
     strategy:
