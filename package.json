@@ -1,9 +1,22 @@
 {
   "name": "@nats-io/nkeys",
-  "version": "2.0.3",
+  "version": "2.1.0-0",
   "description": "A public-key signature system based on Ed25519 for the NATS ecosystem in javascript",
   "main": "lib/mod.js",
   "types": "lib/mod.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/esm/mod.d.ts",
+        "default": "./lib/esm/mod.js"
+      },
+      "require": {
+        "types": "./lib/mod.d.ts",
+        "default": "./lib/mod.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "lib/",
     "LICENSE",
@@ -11,14 +24,13 @@
     "MAINTAINERS.md",
     "CODE-OF-CONDUCT.md"
   ],
+  "sideEffects": false,
   "scripts": {
-    "init": "mkdir -p build",
     "clean": "rm -Rf build/ lib/ ./coverage",
     "real-clean": "npm run clean && rm -Rf node_modules",
     "fmt": "deno fmt src/ examples/ modules/ test/ node_test/",
-    "cjs": "deno run --allow-all bin/cjs-fix-imports.ts -o build/ src/",
     "generate": "deno run -A bin/generate_version.ts && deno fmt",
-    "stage": "npm run init && npm run generate && npm run cjs && tsc",
+    "stage": "npm run generate && tsc && npm run build-esm",
     "prepare": "npm run clean && npm run stage",
     "test-node": "cd node_test; node --test",
     "test-deno": "deno test -A test",
@@ -26,7 +38,8 @@
     "doc": "rm -Rf docs && npm run stage && node_modules/.bin/typedoc --out docs/ && touch ./docs/.nojekyll",
     "bump-qualifier": "npm version prerelease --no-commit-hooks --no-git-tag-version",
     "bump-release": "npm version patch --no-commit-hooks --no-git-tag-version",
-    "check-package": "deno run --allow-all bin/check-bundle-version.ts"
+    "check-package": "deno run --allow-all bin/check-bundle-version.ts",
+    "build-esm": "tsc -p tsconfig.esm.json && node -e \"require('fs').writeFileSync('lib/esm/package.json', JSON.stringify({type: 'module', sideEffects: false}) + '\\n')\""
   },
   "engines": {
     "node": ">=18.0.0"
